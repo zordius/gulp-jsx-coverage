@@ -15,6 +15,8 @@ npm install gulp-jsx-coverage
 Usage
 -----
 
+* The golden rule: **Use .jsx as ext name**
+
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     src: ['test/**/*.js', 'test/components/*.jsx'],  // will pass to gulp.src
