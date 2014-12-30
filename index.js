@@ -1,13 +1,14 @@
 'use strict';
 
 var gulp = require('gulp'),
+    fs = require('fs'),
     istanbul = require('istanbul'),
     mocha = require('gulp-mocha'),
 
 // Never use node-jsx or other transform in your testing code!
 initIstanbulHookHack = function (options) {
     var Module = require('module'),
-        instrumenter = new istanbul.Instrumenter(options.istanbul);
+        instrumenter = new istanbul.Instrumenter(options);
 
     global[options.coverageVariable] = {};
 
@@ -22,7 +23,7 @@ initIstanbulHookHack = function (options) {
             }
         }
 
-        if (!filename.match(options.istanbul.exclude)) {
+        if (!filename.match(options.exclude)) {
             src = instrumenter.instrumentSync(src, filename);
         }
 
