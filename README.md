@@ -22,5 +22,5 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     mocha: {                                         // will pass to mocha
         reporter: 'tap'
     }
-});
+}));
 ```

@@ -23,11 +23,12 @@
     "CoffeeScript"
   ],
   "scripts": {
-    "test": "mocha",
+    "test": "gulp",
     "lint": "jshint"
   },
   "main": "index.js",
   "dependencies": {
+    "react-tools": "0.12.2",
     "gulp": "3.8.10",
     "istanbul": "0.3.5",
     "gulp-mocha": "2.0.0"
