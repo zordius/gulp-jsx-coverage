@@ -2,6 +2,7 @@
 
 var gulp = require('gulp'),
     fs = require('fs'),
+    React = require('react-tools'),
     istanbul = require('istanbul'),
     mocha = require('gulp-mocha'),
 
@@ -36,7 +37,7 @@ module.exports.createTask = function (options) {
         var init = initIstanbulHookHack(options.istanbul),
             Collector = istanbul.Collector;
 
-        return gulp.src(['test/**/*.js', 'test/components/*.js*'])
+        return gulp.src(options.src)
         .pipe(mocha(options.mocha))
         .on('end', function () {
             var collector = new Collector();

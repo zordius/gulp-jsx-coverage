@@ -17,9 +17,7 @@ Testlib = {
         var rendered;
         global.document = jsdom('<!DOCTYPE html><html><body></body></html>');
         global.window = document.parentWindow;
-        React.withContext({fluxex: context || Testlib.getMockContext()}, function () {
-            rendered = TestUtils.renderIntoDocument(React.createElement(react, props));
-        });
+        rendered = TestUtils.renderIntoDocument(React.createElement(react, props));
         return TestUtils.findRenderedComponentWithType(rendered, react);
     }
 };
@@ -28,7 +26,7 @@ describe('test coverage', function () {
     it('should covered', function (done) {
         var node = Testlib.renderJSX(<div>{target.multi(3,2)}</div>);
 
-        console.log(node);
+        assert.equal('6', node.getDOMNode().innerHTML);
         done();
     });
 });
