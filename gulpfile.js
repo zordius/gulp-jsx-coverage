@@ -5,7 +5,7 @@ require('gulp').task('default', require('./index').createTask({
         exclude: /node_modules/
     },
     coverage: {
-        reporters: ['text-summary'],
+        reporters: ['text-summary', 'json', 'lcov'],
         directory: 'coverage'
     },
     mocha: {
