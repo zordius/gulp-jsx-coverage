@@ -26,7 +26,7 @@ initIstanbulHookHack = function (options, reactOpts) {
 
         if (filename.match(/\.coffee$/)) {
             try {
-                src = new Buffer(require('coffee-script').compile(src, options.coffeeOpts).js);
+                src = require('coffee-script').compile(src, options.coffeeOpts);
             } catch (e) {
                 throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
             }

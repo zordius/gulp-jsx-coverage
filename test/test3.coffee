@@ -1,5 +1,4 @@
-assert = require 'assert'
-target = require './target'
-desribe 'Coffee test', ->
-    it 'should cover well', ->
-        `assert.equal(15, target.multi(3, 5))`
+mocha = require 'mocha'
+mocha.describe 'Coffee test', ->
+  mocha.it 'should pass', ->
+    hello = 1
