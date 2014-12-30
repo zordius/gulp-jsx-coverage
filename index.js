@@ -28,12 +28,12 @@ initIstanbulHookHack = function (options) {
 
         module._compile(src, filename);
     };
-},
+};
 
-createTask = function (options) {
+module.exports.createTask = function (options) {
     return function () {
         var init = initIstanbulHookHack(options.istanbul),
-            Collector = istanbul.Collector,
+            Collector = istanbul.Collector;
 
         return gulp.src(['test/**/*.js', 'test/components/*.js*'])
         .pipe(mocha(options.mocha))
@@ -43,10 +43,8 @@ createTask = function (options) {
             collector.add(global[options.istanbul.coverageVariable]);
 
             options.coverage.reporters.forEach(function (R) {
-                istanbul.Report.create(R, {dir: configs.coverage.directory}).writeReport(collector, true);
+                istanbul.Report.create(R, {dir: options.coverage.directory}).writeReport(collector, true);
             });
         });
     };
 };
-
-module.exports = createTask;
