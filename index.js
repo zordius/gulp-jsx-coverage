@@ -7,7 +7,7 @@ var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
 
 // Never use node-jsx or other transform in your testing code!
-initIstanbulHookHack = function (options) {
+initIstanbulHookHack = function (options, reactOpts) {
     var Module = require('module'),
         instrumenter = new istanbul.Instrumenter(options);
 
@@ -16,11 +16,19 @@ initIstanbulHookHack = function (options) {
     Module._extensions['.js'] = function (module, filename) {
         var src = fs.readFileSync(filename, {encoding: 'utf8'});
 
-        if (filename.match(/\.jsx/)) {
+        if (filename.match(/\.jsx$/)) {
             try {
-                src = React.transform(src);
+                src = React.transform(src, reactOpts);
             } catch (e) {
-                throw new Error('Error when transform ' + filename + ': ' + e.toString());
+                throw new Error('Error when transform jsx ' + filename + ': ' + e.toString());
+            }
+        }
+
+        if (filename.match(/\.coffee$/)) {
+            try {
+                src = new Buffer(require('coffee-script').compile(src, options.coffeeOpts).js);
+            } catch (e) {
+                throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
             }
         }
 
@@ -34,7 +42,7 @@ initIstanbulHookHack = function (options) {
 
 module.exports.createTask = function (options) {
     return function () {
-        var init = initIstanbulHookHack(options.istanbul),
+        var init = initIstanbulHookHack(options.istanbul, options.react, options.coffee),
             Collector = istanbul.Collector;
 
         return gulp.src(options.src)
