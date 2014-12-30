@@ -30,6 +30,12 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     },
     mocha: {                                         // will pass to mocha
         reporter: 'tap'
+    },
+    react: {                                         // will pass to react-tools
+        sourceMap: true
+    },
+    coffee: {                                        // will pass to coffee.compile
+        sourceMap: true
     }
 }));
 ```
