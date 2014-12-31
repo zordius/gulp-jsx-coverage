@@ -19,12 +19,25 @@ fixSourceMapContent = function (sourceMap, source) {
     return JSON.stringify(map);
 },
 
+betterIndent = function (string, loc) {
+    var size = string.length,
+        newloc = size - (size % 4) + 8;
+
+    if (newloc < loc) {
+        newloc = loc;
+    }
+
+    return string + (new Array(newloc - size + 1)).join(' ');
+},
+
 addSourceComments = function (source) {
     var sourceComment = source.match(/\n\/\/# sourceMappingURL=data:application\/json;base64,(.+)/),
         sourceMap,
         oldlines,
         lines = source.split(/\n/),
         mappings = [],
+        loc,
+        line,
         outputs = [];
 
     if (sourceComment) {
@@ -35,6 +48,7 @@ addSourceComments = function (source) {
         });
         mappings.forEach(function (V, I) {
             if (!V || !I || outputs[V]) {
+                loc -= 8;
                 return;
             }
 
@@ -46,8 +60,11 @@ addSourceComments = function (source) {
                 return;
             }
 
+            line = betterIndent(lines[I-1], loc);
+            loc = line.length;
+
             // Add comment to hint original code
-            lines[I-1] += '            // Line ' + V + ': ' + oldlines[V-1];
+            lines[I-1] = line + '// ' + ((V!==I) ? ('Line ' + V + ': ') : '') + oldlines[V-1];
         });
         source = lines.join('\n').replace(/\/\/# sourceMappingURL=.+/, '// SourceMap was distributed to comments by gulp-jsx-coverage');
     }
