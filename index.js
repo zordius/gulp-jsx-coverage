@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     React = require('react-tools'),
     istanbul = require('istanbul'),
     mocha = require('gulp-mocha'),
+    parseVLQ = require('parse-base64vlq-mappings'),
     sourceStore = istanbul.Store.create('memory'),
 
 getDataURI = function (sourceMap) {
@@ -19,6 +20,33 @@ fixSourceMapContent = function (sourceMap, source) {
 },
 
 addSourceComments = function (source) {
+    var sourceComment = source.match(/\n\/\/# sourceMappingURL=data:application\/json;base64,(.+)/),
+        sourceMap,
+        oldlines,
+        lines = source.split(/\n/),
+        mappings = [],
+        outputs = [];
+
+    if (sourceComment) {
+        sourceMap = JSON.parse(new Buffer(sourceComment[1], 'base64').toString('utf8'));
+        oldlines = sourceMap.sourcesContent[0].split(/\n/);
+        parseVLQ(sourceMap.mappings).forEach(function (P) {
+            mappings[P.generated.line] = P.original.line;
+        });
+        mappings.forEach(function (V, I) {
+            if (!V || !I || outputs[V]) {
+                return;
+            }
+
+            outputs[V] = 1;
+
+            if (oldlines[V-1] === lines[I-1]) {
+                return;
+            }
+            lines[I-1] += '            // Line ' + V + ': ' + oldlines[V-1];
+        });
+        source = lines.join('\n').replace(/\/\/# sourceMappingURL=.+/, '// SourceMap was distributed to comments by gulp-jsx-coverage');
+    }
     return source;
 },
 
