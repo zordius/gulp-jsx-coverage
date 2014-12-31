@@ -67,7 +67,7 @@ npm install
 npm test
 ```
 
-Output:
+**Output**:
 
 ```
 [14:10:58] Using gulpfile ~/gulp-jsx-coverage/gulpfile.js
