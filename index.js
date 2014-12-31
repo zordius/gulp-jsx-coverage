@@ -38,11 +38,15 @@ addSourceComments = function (source) {
                 return;
             }
 
+            // Mapping once
             outputs[V] = 1;
 
+            // Do not comment when transform nothing
             if (oldlines[V-1] === lines[I-1]) {
                 return;
             }
+
+            // Add comment to hint original code
             lines[I-1] += '            // Line ' + V + ': ' + oldlines[V-1];
         });
         source = lines.join('\n').replace(/\/\/# sourceMappingURL=.+/, '// SourceMap was distributed to comments by gulp-jsx-coverage');
