@@ -22,18 +22,16 @@ Testlib = {
     }
 };
 
-describe('test coverage', function () {
-    it('should covered', function (done) {
+describe('test2.jsx', function () {
+    it('should covered', function () {
         var node = Testlib.renderJSX(<div>{
             target.multi(3,2)
         }</div>);
 
         assert.equal('6', node.getDOMNode().innerHTML);
+    });
 
-        if (0) {
-            console.log('not cover this!');
-        }
-
-        done();
+    it.skip('should not covered', function () {
+        console.log('not cover this!');
     });
 });
