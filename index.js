@@ -31,7 +31,6 @@ initIstanbulHookHack = function (options, reactOpts, coffeeOpts) {
         if (filename.match(/\.jsx$/)) {
             try {
                 src = React.transform(src, reactOpts);
-console.log(src);
             } catch (e) {
                 throw new Error('Error when transform jsx ' + filename + ': ' + e.toString());
             }
@@ -41,7 +40,6 @@ console.log(src);
             try {
                 tmp = require('coffee-script').compile(src, coffeeOpts);
                 src = tmp.js + '\n//# sourceMappingURL=' + getDataURI(fixSourceMapContent(tmp.v3SourceMap, src));
-console.log(src);
             } catch (e) {
                 throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
             }

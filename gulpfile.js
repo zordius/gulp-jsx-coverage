@@ -12,7 +12,7 @@ require('gulp').task('default', require('./index').createTask({
         reporter: 'spec'
     },
     react: {
-        sourceMap: false
+        sourceMap: true
     },
     coffee: {
         sourceMap: true
