@@ -5,14 +5,14 @@ require('gulp').task('default', require('./index').createTask({
         exclude: /node_modules/      // you will also skip test files in most cases
     },
     coverage: {
-        reporters: ['text', 'json'],
+        reporters: ['text', 'json', 'lcov'],
         directory: 'coverage'
     },
     mocha: {
         reporter: 'spec'
     },
     react: {
-        sourceMap: true
+        sourceMap: false
     },
     coffee: {
         sourceMap: true

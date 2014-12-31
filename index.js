@@ -6,19 +6,32 @@ var gulp = require('gulp'),
     istanbul = require('istanbul'),
     mocha = require('gulp-mocha'),
 
+getDataURI = function (sourceMap) {
+    return 'data:application/json;base64,' + new Buffer(unescape(encodeURIComponent(sourceMap)), 'binary').toString('base64');
+},
+
+fixSourceMapContent = function (sourceMap, source) {
+    var map = JSON.parse(sourceMap);
+
+    map.sourcesContent = [source];
+    return JSON.stringify(map);
+},
+
 // Never use node-jsx or other transform in your testing code!
-initIstanbulHookHack = function (options, reactOpts) {
+initIstanbulHookHack = function (options, reactOpts, coffeeOpts) {
     var Module = require('module'),
         instrumenter = new istanbul.Instrumenter(options);
 
     global[options.coverageVariable] = {};
 
     Module._extensions['.js'] = function (module, filename) {
-        var src = fs.readFileSync(filename, {encoding: 'utf8'});
+        var src = fs.readFileSync(filename, {encoding: 'utf8'}),
+            tmp;
 
         if (filename.match(/\.jsx$/)) {
             try {
                 src = React.transform(src, reactOpts);
+console.log(src);
             } catch (e) {
                 throw new Error('Error when transform jsx ' + filename + ': ' + e.toString());
             }
@@ -26,7 +39,9 @@ initIstanbulHookHack = function (options, reactOpts) {
 
         if (filename.match(/\.coffee$/)) {
             try {
-                src = require('coffee-script').compile(src, options.coffeeOpts);
+                tmp = require('coffee-script').compile(src, coffeeOpts);
+                src = tmp.js + '\n//# sourceMappingURL=' + getDataURI(fixSourceMapContent(tmp.v3SourceMap, src));
+console.log(src);
             } catch (e) {
                 throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
             }
