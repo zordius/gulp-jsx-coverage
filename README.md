@@ -91,4 +91,5 @@ All files          |     90.91 |        50 |     91.67 |     90.91 |
 -------------------|-----------|-----------|-----------|-----------|
 ```
 
+* Check <a href="gulpfile.js">gulpfile.js</a> for the sample input.
 * Check <a href="coverage">coverage</a> directory for the sample output.
