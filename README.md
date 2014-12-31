@@ -25,7 +25,8 @@ npm install gulp-jsx-coverage
 Usage
 -----
 
-* The golden rule: **Use .jsx as ext name**
+* The golden rule: **Use .jsx as ext name** , require('file.jsx')
+* The golden rule: **Use .coffee as ext name** , require('file.coffee')
 
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
