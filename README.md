@@ -67,33 +67,38 @@ npm test
 Output:
 
 ```
-> gulp-jsx-coverage@0.0.1 test /Users/zordius/gulp-jsx-coverage
-> gulp
-
-[17:21:00] Using gulpfile ~/gulp-jsx-coverage/gulpfile.js
-[17:21:00] Starting 'default'...
+[14:10:58] Using gulpfile ~/gulp-jsx-coverage/gulpfile.js
+[14:10:58] Starting 'default'...
 
 
-  test coverage
+  test1.js coverage
     ✓ should covered 
 
-  test coverage
+  test2.jsx
     ✓ should covered 
+    - should not covered
+
+  test3.coffee test
+    ✓ should pass 
+    - should not cover
 
 
-  2 passing (32ms)
+  3 passing (31ms)
+  2 pending
 
 -------------------|-----------|-----------|-----------|-----------|
 File               |   % Stmts |% Branches |   % Funcs |   % Lines |
 -------------------|-----------|-----------|-----------|-----------|
-   test/           |     90.91 |        50 |     91.67 |     90.91 |
+   test/           |     85.71 |        50 |     78.57 |     85.71 |
       target.js    |     66.67 |       100 |        50 |     66.67 |
       test1.js     |       100 |       100 |       100 |       100 |
-      test2.jsx    |     93.33 |        50 |       100 |     93.33 |
-      test3.coffee |     88.89 |        50 |       100 |     88.89 |
+      test2.jsx    |     92.86 |       100 |     83.33 |     92.86 |
+      test3.coffee |        75 |        50 |        75 |        75 |
 -------------------|-----------|-----------|-----------|-----------|
-All files          |     90.91 |        50 |     91.67 |     90.91 |
+All files          |     85.71 |        50 |     78.57 |     85.71 |
 -------------------|-----------|-----------|-----------|-----------|
+
+[14:10:59] Finished 'default' after 671 ms
 ```
 
 * Check <a href="gulpfile.js">gulpfile.js</a> for the sample input.
