@@ -29,11 +29,11 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         exclude: /node_modules|\/test\//             // pattern to skip instrument
     },
     coverage: {
-        reporters: ['text-summary', 'json', 'lcov'],
+        reporters: ['text-summary', 'json', 'lcov'], // list of istanbul reporters
         directory: 'coverage'                        // will pass to istanbul reporters
     },
     mocha: {                                         // will pass to mocha
-        reporter: 'tap'
+        reporter: 'spec'
     },
     react: {                                         // will pass to react-tools
         sourceMap: true

@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     React = require('react-tools'),
     istanbul = require('istanbul'),
     mocha = require('gulp-mocha'),
+    sourceStore = istanbul.Store.create('memory'),
 
 getDataURI = function (sourceMap) {
     return 'data:application/json;base64,' + new Buffer(unescape(encodeURIComponent(sourceMap)), 'binary').toString('base64');
@@ -23,6 +24,7 @@ initIstanbulHookHack = function (options, reactOpts, coffeeOpts) {
         instrumenter = new istanbul.Instrumenter(options);
 
     global[options.coverageVariable] = {};
+    sourceStore.dispose();
 
     Module._extensions['.js'] = function (module, filename) {
         var src = fs.readFileSync(filename, {encoding: 'utf8'}),
@@ -45,6 +47,8 @@ initIstanbulHookHack = function (options, reactOpts, coffeeOpts) {
             }
         }
 
+        sourceStore.set(filename, src);
+
         if (!filename.match(options.exclude)) {
             src = instrumenter.instrumentSync(src, filename);
         }
@@ -66,7 +70,10 @@ module.exports.createTask = function (options) {
             collector.add(global[options.istanbul.coverageVariable]);
 
             options.coverage.reporters.forEach(function (R) {
-                istanbul.Report.create(R, {dir: options.coverage.directory}).writeReport(collector, true);
+                istanbul.Report.create(R, {
+                    sourceStore: sourceStore,
+                    dir: options.coverage.directory
+                }).writeReport(collector, true);
             });
         });
     };
