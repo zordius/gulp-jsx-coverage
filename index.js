@@ -47,6 +47,7 @@ addSourceComments = function (source) {
         });
         source = lines.join('\n').replace(/\/\/# sourceMappingURL=.+/, '// SourceMap was distributed to comments by gulp-jsx-coverage');
     }
+
     return source;
 },
 

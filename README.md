@@ -42,10 +42,10 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         reporter: 'spec'
     },
     react: {                                         // will pass to react-tools
-        sourceMap: true
+        sourceMap: true                              // Enable to get hints in HTML reports
     },
     coffee: {                                        // will pass to coffee.compile
-        sourceMap: true
+        sourceMap: true                              // Enable to get hints in HTML reports
     }
 }));
 ```
