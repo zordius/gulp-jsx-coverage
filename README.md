@@ -27,6 +27,7 @@ Usage
 
 * The golden rule: **Use .jsx as ext name** , require('file.jsx')
 * The golden rule: **Use .coffee as ext name** , require('file.coffee')
+* No need to use transform tools to register .jsx or .coffee for require()
 
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
