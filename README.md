@@ -15,7 +15,6 @@ Features
 * Customized everything by options
 * Extract sourceMaps to hint original codes in istanbul reports
 
-<img src="demo1.png" />
 <img src="demo2.png" />
 
 Install
