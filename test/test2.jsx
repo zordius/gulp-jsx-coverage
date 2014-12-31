@@ -24,9 +24,16 @@ Testlib = {
 
 describe('test coverage', function () {
     it('should covered', function (done) {
-        var node = Testlib.renderJSX(<div>{target.multi(3,2)}</div>);
+        var node = Testlib.renderJSX(<div>{
+            target.multi(3,2)
+        }</div>);
 
         assert.equal('6', node.getDOMNode().innerHTML);
+
+        if (0) {
+            console.log('not cover this!');
+        }
+
         done();
     });
 });
