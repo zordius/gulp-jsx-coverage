@@ -24,11 +24,14 @@ Testlib = {
 
 describe('test2.jsx', function () {
     it('should covered', function () {
-        var node = Testlib.renderJSX(<div>{
-            target.multi(3,2)
-        }</div>);
+        var node = Testlib.renderJSX(<div>
+         <h3>Test...</h3>
+         <span>Ya!</span>
+         <div>{target.multi(3,2)}</div>
+        </div>);
 
-        assert.equal('6', node.getDOMNode().innerHTML);
+        assert.equal('Ya!', node.getDOMNode().querySelector('span').innerHTML);
+        assert.equal('6', node.getDOMNode().querySelector('div').innerHTML);
     });
 
     it.skip('should not covered', function () {
