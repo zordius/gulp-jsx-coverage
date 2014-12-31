@@ -90,3 +90,5 @@ File               |   % Stmts |% Branches |   % Funcs |   % Lines |
 All files          |     90.91 |        50 |     91.67 |     90.91 |
 -------------------|-----------|-----------|-----------|-----------|
 ```
+
+* Check <a href="coverage">coverage</a> directory for the sample output.
