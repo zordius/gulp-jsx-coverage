@@ -13,6 +13,7 @@ Features
 * Help you create a gulp task to handle mocha testing + istanbul coverage
 * Compile .jsx and .coffee files on the fly
 * Customized everything by options
+* Extract sourceMaps to hint original codes in istanbul reports
 
 Install
 -------
