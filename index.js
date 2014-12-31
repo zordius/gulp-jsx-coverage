@@ -18,12 +18,16 @@ fixSourceMapContent = function (sourceMap, source) {
     return JSON.stringify(map);
 },
 
-// Never use node-jsx or other transform in your testing code!
-initIstanbulHookHack = function (options, reactOpts, coffeeOpts) {
-    var Module = require('module'),
-        instrumenter = new istanbul.Instrumenter(options);
+addSourceComments = function (source) {
+    return source;
+},
 
-    global[options.coverageVariable] = {};
+// Never use node-jsx or other transform in your testing code!
+initIstanbulHookHack = function (options) {
+    var Module = require('module'),
+        instrumenter = new istanbul.Instrumenter(options.istanbul);
+
+    global[options.istanbul.coverageVariable] = {};
     sourceStore.dispose();
 
     Module._extensions['.js'] = function (module, filename) {
@@ -32,7 +36,7 @@ initIstanbulHookHack = function (options, reactOpts, coffeeOpts) {
 
         if (filename.match(/\.jsx$/)) {
             try {
-                src = React.transform(src, reactOpts);
+                src = React.transform(src, options.react);
             } catch (e) {
                 throw new Error('Error when transform jsx ' + filename + ': ' + e.toString());
             }
@@ -40,16 +44,16 @@ initIstanbulHookHack = function (options, reactOpts, coffeeOpts) {
 
         if (filename.match(/\.coffee$/)) {
             try {
-                tmp = require('coffee-script').compile(src, coffeeOpts);
+                tmp = require('coffee-script').compile(src, options.coffee);
                 src = tmp.js + '\n//# sourceMappingURL=' + getDataURI(fixSourceMapContent(tmp.v3SourceMap, src));
             } catch (e) {
                 throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
             }
         }
 
-        sourceStore.set(filename, src);
+        sourceStore.set(filename, addSourceComments(src));
 
-        if (!filename.match(options.exclude)) {
+        if (!filename.match(options.istanbul.exclude)) {
             src = instrumenter.instrumentSync(src, filename);
         }
 
@@ -59,7 +63,7 @@ initIstanbulHookHack = function (options, reactOpts, coffeeOpts) {
 
 module.exports.createTask = function (options) {
     return function () {
-        var init = initIstanbulHookHack(options.istanbul, options.react, options.coffee),
+        var init = initIstanbulHookHack(options),
             Collector = istanbul.Collector;
 
         return gulp.src(options.src)
