@@ -7,6 +7,13 @@ Enable coverage on .JSX or .coffee files.
 
 **This is not a gulp plugin, it just a task creator to help you deal with istanbul instrumenter and collect coverage report in gulp**
 
+Features
+--------
+
+* Help you create a gulp task to handle mocha testing + istanbul coverage
+* Compile .jsx and .coffee files on the fly
+* Customized everything by options
+
 Install
 -------
 
