@@ -7,8 +7,6 @@ Enable coverage on .JSX or .coffee files.
 
 **This is not a gulp plugin, it just a task creator to help you deal with istanbul instrumenter and collect coverage report in gulp**
 
-**NOTE: coffee html/lcov report is buggy now**
-
 Install
 -------
 
