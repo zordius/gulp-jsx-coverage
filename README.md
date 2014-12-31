@@ -19,8 +19,10 @@ Install
 -------
 
 ```
-npm install gulp-jsx-coverage
+npm install gulp-jsx-coverage mocha --save-dev
 ```
+
+* You will need to install coffee-script when you require('foobar.coffee')
 
 Usage
 -----
