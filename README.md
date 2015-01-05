@@ -25,7 +25,7 @@ Install
 npm install gulp-jsx-coverage mocha --save-dev
 ```
 
-* You will need to install coffee-script when you require('foobar.coffee') or write tests as foobar.coffee
+* You will need to install <a href="https://www.npmjs.com/package/coffee-script">coffee-script</a> when you require('foobar.coffee') or write tests as foobar.coffee
 
 Usage
 -----
