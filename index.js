@@ -129,6 +129,10 @@ module.exports.createTask = function (options) {
                     dir: options.coverage.directory
                 }).writeReport(collector, true);
             });
+
+            if ('function' === (typeof options.cleanup)) {
+                options.cleanup(this);
+            }
         });
     };
 };
