@@ -53,6 +53,12 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     },
     coffee: {                                        // will pass to coffee.compile
         sourceMap: true                              // true to get hints in HTML coverage reports
+    },
+
+    //optional
+    cleanup: function () {
+        // do extra tasks after test done
+        // EX: clean global.window when test with jsdom
     }
 }));
 ```
