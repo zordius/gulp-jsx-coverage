@@ -112,7 +112,7 @@ initIstanbulHookHack = function (options) {
 };
 
 module.exports.createTask = function (options) {
-    return function () {
+    return function (callback) {
         var init = initIstanbulHookHack(options),
             Collector = istanbul.Collector;
 
@@ -133,6 +133,7 @@ module.exports.createTask = function (options) {
             if ('function' === (typeof options.cleanup)) {
                 options.cleanup(this);
             }
+            callback();
         });
     };
 };
