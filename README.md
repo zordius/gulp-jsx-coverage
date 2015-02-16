@@ -49,8 +49,8 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     mocha: {                                         // will pass to mocha
         reporter: 'spec'
     },
-    react: {                                         // will pass to react-tools
-        sourceMap: true                              // true to get hints in HTML covarage reports
+    babel: {                                         // will pass to babel
+        sourceMap: 'inline'                          // get hints in HTML covarage reports
     },
     coffee: {                                        // will pass to coffee.compile
         sourceMap: true                              // true to get hints in HTML coverage reports
