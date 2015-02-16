@@ -2,7 +2,8 @@
 
 var gulp = require('gulp'),
     fs = require('fs'),
-    React = require('react-tools'),
+//    React = require('react-tools'),
+    babel = require('babel'),
     istanbul = require('istanbul'),
     mocha = require('gulp-mocha'),
     parseVLQ = require('parse-base64vlq-mappings'),
@@ -86,7 +87,10 @@ initIstanbulHookHack = function (options) {
 
         if (filename.match(/\.jsx$/)) {
             try {
-                src = React.transform(src, options.react);
+                src = babel.transform(src, {
+                    filename: filename,
+                    sourceMap: 'inline'
+                }).code; //options.react);
             } catch (e) {
                 throw new Error('Error when transform jsx ' + filename + ': ' + e.toString());
             }

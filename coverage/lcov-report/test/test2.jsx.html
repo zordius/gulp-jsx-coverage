@@ -257,7 +257,21 @@
 39
 40
 41
-42</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,24 +280,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -297,54 +326,67 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";       // 'use strict';
 &nbsp;
-var jsdom = require('jsdom').jsdom,
-    React = require('react'),
-    TestUtils = require('react/addons').addons.TestUtils,
-    assert = require('assert'),
-    target = require('./target'),
-&nbsp;
-Testlib = {
+var jsdom = require("jsdom").jsdom,     // var jsdom = require('jsdom').jsdom,
+    React = require("react"),           //     React = require('react'),
+    TestUtils = require("react/addons").addons.TestUtils,       //     TestUtils = require('react/addons').addons.TestUtils,
+    assert = require("assert"),                                 //     assert = require('assert'),
+    target = require("./target"),                               //     target = require('./target'),
+    Testlib = {                                                 // Line 9: Testlib = {
     renderJSX: function (jsx, context) {
         return Testlib.renderComponent(React.createClass({
-            displayName: 'TestJSX',
-            render: function () {return jsx;}
+            displayName: "TestJSX",                             // Line 12:             displayName: 'TestJSX',
+            render: function () {                               // Line 13:             render: function () {return jsx;}
+                return jsx;
+            }
         }), undefined, context);
     },
     renderComponent: function (react, props, context) {
         var rendered;
-        global.document = jsdom('&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;');
+        global.document = jsdom("&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;");       // Line 18:         global.document = jsdom('&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;');
         global.window = document.parentWindow;
         rendered = TestUtils.renderIntoDocument(React.createElement(react, props));
         return TestUtils.findRenderedComponentWithType(rendered, react);
     }
 };
 &nbsp;
-describe('test2.jsx', function () {
-    it('should covered', function () {
-        var node = Testlib.renderJSX(React.createElement("div", null,       //         var node = Testlib.renderJSX(&lt;div&gt;
-         React.createElement("h3", null, "Test..."),                        //          &lt;h3&gt;Test...&lt;/h3&gt;
-         React.createElement("span", null, "Ya!"),                          //          &lt;span&gt;Ya!&lt;/span&gt;
-         React.createElement("div", null, target.multi(3,2))                //          &lt;div&gt;{target.multi(3,2)}&lt;/div&gt;
-        ));                                                                 //         &lt;/div&gt;);
+describe("test2.jsx", function () {                                                 // Line 25: describe('test2.jsx', function () {
+    it("should covered", function () {                                              // Line 26:     it('should covered', function () {
+        var node = Testlib.renderJSX(React.createElement(                           // Line 27:         var node = Testlib.renderJSX(&lt;div&gt;
+            "div",
+            null,
+            React.createElement(                                                    // Line 28:          &lt;h3&gt;Test...&lt;/h3&gt;
+                "h3",
+                null,
+                "Test..."
+            ),
+            React.createElement(                                            // Line 29:          &lt;span&gt;Ya!&lt;/span&gt;
+                "span",
+                null,
+                "Ya!"
+            ),
+            React.createElement(                                    // Line 30:          &lt;div&gt;{target.multi(3,2)}&lt;/div&gt;
+                "div",
+                null,
+                target.multi(3, 2)
+            )
+        ));                                         // Line 31:         &lt;/div&gt;);
 &nbsp;
-        assert.equal('Ya!', node.getDOMNode().querySelector('span').innerHTML);
-        assert.equal('6', node.getDOMNode().querySelector('div').innerHTML);
+        assert.equal("Ya!", node.getDOMNode().querySelector("span").innerHTML);     // Line 33:         assert.equal('Ya!', node.getDOMNode().querySelector('span').innerHTML);
+        assert.equal("6", node.getDOMNode().querySelector("div").innerHTML);        // Line 34:         assert.equal('6', node.getDOMNode().querySelector('div').innerHTML);
     });
 &nbsp;
-    it.skip('should not covered', <span class="fstat-no" title="function not covered" >function () {</span>
-<span class="cstat-no" title="statement not covered" >        console.log('not cover this!');</span>
+    it.skip("should not covered", <span class="fstat-no" title="function not covered" >function () {</span>                                     // Line 37:     it.skip('should not covered', function () {
+<span class="cstat-no" title="statement not covered" >        console.log("not cover this!"); </span>                                            // Line 38:         console.log('not cover this!');
     });
 });
-&nbsp;
 // SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
 </table></pre>
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Dec 31 2014 14:39:50 GMT+0800 (CST)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Feb 16 2015 11:44:07 GMT+0800 (CST)</div>
 </div>
 
 <script src="../prettify.js"></script>

@@ -16,6 +16,8 @@
   "keywords": [
     "flux",
     "react",
+    "babel",
+    "6to5",
     "jsx",
     "istanbul",
     "mocha",
@@ -30,6 +32,7 @@
   "dependencies": {
     "parse-base64vlq-mappings": "0.1.4",
     "react-tools": "0.12.2",
+    "babel": "4.0.1",
     "gulp": "3.8.10",
     "istanbul": "0.3.5",
     "gulp-mocha": "2.0.0"
