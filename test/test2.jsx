@@ -28,6 +28,10 @@ describe('test2.jsx', function () {
          <h3>Test...</h3>
          <span>Ya!</span>
          <div>{target.multi(3,2)}</div>
+         <pre>{`
+This is multi
+line string!
+`}</pre>
         </div>);
 
         assert.equal('Ya!', node.getDOMNode().querySelector('span').innerHTML);
