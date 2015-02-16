@@ -11,8 +11,8 @@ require('gulp').task('default', require('./index').createTask({
     mocha: {
         reporter: 'spec'
     },
-    react: {
-        sourceMap: true
+    babel: {
+        sourceMap: 'inline'
     },
     coffee: {
         sourceMap: true

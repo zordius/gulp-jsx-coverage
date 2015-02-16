@@ -87,10 +87,9 @@ initIstanbulHookHack = function (options) {
 
         if (filename.match(/\.jsx$/)) {
             try {
-                src = babel.transform(src, {
-                    filename: filename,
-                    sourceMap: 'inline'
-                }).code; //options.react);
+                src = babel.transform(src, Object.assign({
+                    filename: filename
+                }, options.babel)).code;
             } catch (e) {
                 throw new Error('Error when transform jsx ' + filename + ': ' + e.toString());
             }
@@ -140,3 +139,5 @@ module.exports.createTask = function (options) {
         });
     };
 };
+
+require('object.assign').shim();
