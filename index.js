@@ -2,7 +2,6 @@
 
 var gulp = require('gulp'),
     fs = require('fs'),
-//    React = require('react-tools'),
     babel = require('babel'),
     istanbul = require('istanbul'),
     mocha = require('gulp-mocha'),
