@@ -1,6 +1,6 @@
 {
   "name": "gulp-jsx-coverage",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Enable coverage on .JSX or .coffee files.",
   "author": "Zordius <zordius@yahoo-inc.com>",
   "contributors": [
