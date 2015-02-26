@@ -106,7 +106,11 @@ initIstanbulHookHack = function (options) {
         sourceStore.set(filename, addSourceComments(src));
 
         if (!filename.match(options.istanbul.exclude)) {
-            src = instrumenter.instrumentSync(src, filename);
+            try {
+                src = instrumenter.instrumentSync(src, filename);
+            } catch (e) {
+                throw new Error('Error when instrument ' + filename + ': ' + e.toString());
+            }
         }
 
         module._compile(src, filename);
