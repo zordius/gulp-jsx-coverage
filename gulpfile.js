@@ -2,7 +2,8 @@ require('gulp').task('default', require('./index').createTask({
     src: ['test/test1.js', 'test/test2.jsx', 'test/test3.coffee'],
     istanbul: {
         coverageVariable: '__MY_TEST_COVERAGE__',
-        exclude: /node_modules/      // you will also skip test files in most cases
+        noInstrument: /test[0-9]/,                   // skip files from being instrumented for code coverage (will still transpile)
+        noTranspileOrInstrument: /node_modules/      // don't transpile or instrument matched files
     },
     coverage: {
         reporters: ['text', 'json', 'lcov'],

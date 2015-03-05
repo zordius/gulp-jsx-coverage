@@ -84,8 +84,9 @@ initIstanbulHookHack = function (options) {
         var src = fs.readFileSync(filename, {encoding: 'utf8'}),
             tmp;
             
-        // skip checking files that are not meant to be instrumented
-        if (!filename.match(options.istanbul.exclude)) {
+        // skip checking files for transpilation that are not meant to be 
+        // transpiled or instrumented
+        if (!filename.match(options.istanbul.noTranspileOrInstrument)) {
             if (filename.match(/\.jsx$/)) {
                 try {
                     src = babel.transform(src, Object.assign({
@@ -118,7 +119,10 @@ initIstanbulHookHack = function (options) {
 
         sourceStore.set(filename, addSourceComments(src));
 
-        if (!filename.match(options.istanbul.exclude)) {
+        // Don't instrument files that aren't meant to be
+        if (!filename.match(options.istanbul.noInstrument) &&
+            !filename.match(options.istanbul.noTranspileOrInstrument)) {
+            console.log(filename);
             try {
                 src = instrumenter.instrumentSync(src, filename);
             } catch (e) {
