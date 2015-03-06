@@ -40,8 +40,16 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     src: ['test/**/*.js', 'test/components/*.jsx'],  // will pass to gulp.src
     istanbul: {                                      // will pass to istanbul
         coverageVariable: '__MY_TEST_COVERAGE__',
-        noInstrument: /test[0-9]/,                   // skip files from being instrumented for code coverage (will still transpile)
-        noTranspileOrInstrument: /node_modules/      // don't transpile or instrument matched files
+        exclude: /node_modules|test[0-9]/            // do not instrument these files
+    },
+    transpile: {                                     // this is default whitelist/blacklist for transpilers
+        babel: {
+            include: /\.jsx?$/,
+            exclude: /node_modules/
+        },
+        coffee: {
+            include: /\.coffee$/
+        }
     },
     coverage: {
         reporters: ['text-summary', 'json', 'lcov'], // list of istanbul reporters
