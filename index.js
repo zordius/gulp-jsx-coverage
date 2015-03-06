@@ -122,7 +122,6 @@ initIstanbulHookHack = function (options) {
         // Don't instrument files that aren't meant to be
         if (!filename.match(options.istanbul.noInstrument) &&
             !filename.match(options.istanbul.noTranspileOrInstrument)) {
-            console.log(filename);
             try {
                 src = instrumenter.instrumentSync(src, filename);
             } catch (e) {
