@@ -33,7 +33,7 @@ Usage
 * The golden rule: **Use .jsx as ext name** , require('file.jsx')
 * The golden rule: **Use .coffee as ext name** , require('file.coffee')
 * Regular JavaScript files with .js extension may use ES6 features, including mocha tests
-* No need to use transform tools to register .jsx or .coffee for require() at library/util/module files, do this only at application/server.js.
+* No need to use transform tools to register .jsx or .coffee for require() at library|util|module files, do this only at application|server.js.
 
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
