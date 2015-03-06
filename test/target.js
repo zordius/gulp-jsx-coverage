@@ -1,8 +1,8 @@
 module.exports = {
-    multi: function (a, b) {
+    multi: (a, b) => {
         return a * b;
     },
-    add: function (a, b) {
+    add: (a, b) => {
         return a + b;
     }
 }

@@ -22,8 +22,8 @@ Testlib = {
     }
 };
 
-describe('test2.jsx', function () {
-    it('should covered', function () {
+describe('target (tested by test2.jsx)', function () {
+    it('should multiply correctly', function () {
         var node = Testlib.renderJSX(<div>
          <h3>Test...</h3>
          <span>Ya!</span>
@@ -38,7 +38,7 @@ line string!
         assert.equal('6', node.getDOMNode().querySelector('div').innerHTML);
     });
 
-    it.skip('should not covered', function () {
-        console.log('not cover this!');
+    it.skip('should not show coverage info for test2.jsx', function () {
+        console.log('test2.jsx is not included in coverage report');
     });
 });

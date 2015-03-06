@@ -83,29 +83,45 @@ initIstanbulHookHack = function (options) {
     Module._extensions['.js'] = function (module, filename) {
         var src = fs.readFileSync(filename, {encoding: 'utf8'}),
             tmp;
-
-        if (filename.match(/\.jsx$/)) {
-            try {
-                src = babel.transform(src, Object.assign({
-                    filename: filename
-                }, options.babel)).code;
-            } catch (e) {
-                throw new Error('Error when transform jsx ' + filename + ': ' + e.toString());
+            
+        // skip checking files for transpilation that are not meant to be 
+        // transpiled or instrumented
+        if (!filename.match(options.istanbul.noTranspileOrInstrument)) {
+            if (filename.match(/\.jsx$/)) {
+                try {
+                    src = babel.transform(src, Object.assign({
+                        filename: filename
+                    }, options.babel)).code;
+                } catch (e) {
+                    throw new Error('Error when transform jsx ' + filename + ': ' + e.toString());
+                }
             }
-        }
 
-        if (filename.match(/\.coffee$/)) {
-            try {
-                tmp = require('coffee-script').compile(src, options.coffee);
-                src = tmp.js + '\n//# sourceMappingURL=' + getDataURI(fixSourceMapContent(tmp.v3SourceMap, src));
-            } catch (e) {
-                throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
+            if (filename.match(/\.js$/)) {
+                try {
+                    src = babel.transform(src, Object.assign({
+                        filename: filename
+                    }, options.babel)).code;
+                } catch (e) {
+                    throw new Error('Error when transform es6 ' + filename + ': ' + e.toString());
+                }
+            }
+
+            if (filename.match(/\.coffee$/)) {
+                try {
+                    tmp = require('coffee-script').compile(src, options.coffee);
+                    src = tmp.js + '\n//# sourceMappingURL=' + getDataURI(fixSourceMapContent(tmp.v3SourceMap, src));
+                } catch (e) {
+                    throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
+                }
             }
         }
 
         sourceStore.set(filename, addSourceComments(src));
 
-        if (!filename.match(options.istanbul.exclude)) {
+        // Don't instrument files that aren't meant to be
+        if (!filename.match(options.istanbul.noInstrument) &&
+            !filename.match(options.istanbul.noTranspileOrInstrument)) {
             try {
                 src = instrumenter.instrumentSync(src, filename);
             } catch (e) {
