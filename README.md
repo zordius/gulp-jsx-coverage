@@ -37,7 +37,7 @@ Usage
 
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
-    src: ['test/**/*.js', 'test/components/*.jsx'],  // will pass to gulp.src then mocha
+    src: ['test/**/*.js', 'test/components/*.jsx'],  // will pass to gulp.src as mocha tests
     istanbul: {                                      // will pass to istanbul
         coverageVariable: '__MY_TEST_COVERAGE__',
         exclude: /node_modules|test[0-9]/            // do not instrument these files
