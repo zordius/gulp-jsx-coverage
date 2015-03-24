@@ -86,16 +86,17 @@ npm test
 **Output**:
 
 ```
-[15:22:34] Using gulpfile ~/gulp-jsx-coverage/gulpfile.js
-[15:22:34] Starting 'default'...
+[13:00:52] Using gulpfile ~/gulp-jsx-coverage/gulpfile.js
+[13:00:52] Starting 'default'...
 
 
   target (tested by test1.js)
     ✓ should multiply correctly
     - should not show coverage info for test1.js
+    ✓ should handle es6 template string correctly
 
   target (tested by test2.jsx)
-    ✓ should multiply correctly (50ms)
+    ✓ should multiply correctly
     - should not show coverage info for test2.jsx
 
   target (tested by test3.coffee)
@@ -103,19 +104,19 @@ npm test
     - should not show coverage info for test3.coffee
 
 
-  3 passing (58ms)
+  4 passing (42ms)
   3 pending
 
 ----------------|-----------|-----------|-----------|-----------|
 File            |   % Stmts |% Branches |   % Funcs |   % Lines |
 ----------------|-----------|-----------|-----------|-----------|
-   test/        |     66.67 |       100 |        50 |     66.67 |
-      target.js |     66.67 |       100 |        50 |     66.67 |
+   test/        |        80 |       100 |     66.67 |        80 |
+      target.js |        80 |       100 |     66.67 |        80 |
 ----------------|-----------|-----------|-----------|-----------|
-All files       |     66.67 |       100 |        50 |     66.67 |
+All files       |        80 |       100 |     66.67 |        80 |
 ----------------|-----------|-----------|-----------|-----------|
 
-[15:22:35] Finished 'default' after 753 ms
+[13:00:53] Finished 'default' after 642 ms
 ```
 
 * Check <a href="gulpfile.js">gulpfile.js</a> for the sample input.
