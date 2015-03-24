@@ -9,4 +9,6 @@ cache:
   directories:
     - node_modules
 sudo: false
-secure: "IuKQip/kyqmAz8PN+/4y1L6Ikw8AqFUwkodG9cprxmWVEEBfQFi45QyxdFFFw9bs7euuBko52qjM5pxUN0++k3nph10t9HG8uu8SDPcJcqm33acbGYRItoShThXXYg4Ma2BWE2ZxxsC0LsSp7hPzIeTwOldFi6vd7GlPKA4foZc="
+env:
+  global:
+    - secure: "IuKQip/kyqmAz8PN+/4y1L6Ikw8AqFUwkodG9cprxmWVEEBfQFi45QyxdFFFw9bs7euuBko52qjM5pxUN0++k3nph10t9HG8uu8SDPcJcqm33acbGYRItoShThXXYg4Ma2BWE2ZxxsC0LsSp7hPzIeTwOldFi6vd7GlPKA4foZc="
