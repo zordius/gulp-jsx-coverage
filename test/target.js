@@ -1,3 +1,5 @@
+var React = require('react');
+
 module.exports = {
     multi: (a, b) => {
         return a * b;
@@ -10,5 +12,10 @@ module.exports = {
  <h1>${title}</h1>
  <p>${description}</p>
 </div>`;
-    }
+    },
+    TestComponent: (
+     <div>
+      <h1>Test!</h1>
+     </div>
+    )
 }
