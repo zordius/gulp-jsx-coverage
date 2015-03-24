@@ -119,4 +119,4 @@ All files       |     66.67 |       100 |        50 |     66.67 |
 ```
 
 * Check <a href="gulpfile.js">gulpfile.js</a> for the sample input.
-* Check <a href="coverage">coverage</a> directory for the sample output. (BAD LINK, later fix)
+* Check <a href="http://zordius.github.io/gulp-jsx-coverage/lcov-report/">coverage report</a> directory for the sample output.
