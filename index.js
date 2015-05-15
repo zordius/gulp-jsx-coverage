@@ -123,17 +123,16 @@ initIstanbulHookHack = function (options) {
 
         module._compile(src, filename);
     };
-};
+},
 
-module.exports.createTask = function (options) {
-    return function () {
-        var init = initIstanbulHookHack(options),
-            Collector = istanbul.Collector;
-
-        return gulp.src(options.src)
-        .pipe(mocha(options.mocha))
-        .on('end', function () {
-            var collector = new Collector();
+GJC = {
+    initIstanbulHook: function (options) {
+        initIstanbulHookHack(options);
+    },
+    colloectIstanbulCoverage: function (options) {
+        return function () {
+            var Collector = istanbul.Collector,
+                collector = new Collector();
 
             collector.add(global[options.istanbul.coverageVariable]);
 
@@ -147,8 +146,19 @@ module.exports.createTask = function (options) {
             if ('function' === (typeof options.cleanup)) {
                 options.cleanup(this);
             }
-        });
-    };
+        }
+    },
+    createTask: function (options) {
+        return function () {
+            GJC.initIstanbulHook(options);
+
+            return gulp.src(options.src)
+            .pipe(mocha(options.mocha))
+            .on('end', GJC.colloectIstanbulCoverage(options));
+        };
+    }
 };
+
+module.exports = GJC;
 
 require('object.assign').shim();
