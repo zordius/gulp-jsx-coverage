@@ -83,7 +83,7 @@ gulp.task('my_jasmine_tests', function () {
 
     return gulp.src('test/*.js')
     .pipe(jasmine(jasmineOptions))
-    .on('end', GJC.colloectIstanbulCoverage(options));
+    .on('end', GJC.colloectIstanbulCoverage(GJCoptions));
 });
 ```
 
