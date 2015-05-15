@@ -4,7 +4,6 @@ var gulp = require('gulp'),
     fs = require('fs'),
     babel = require('babel'),
     istanbul = require('istanbul'),
-    mocha = require('gulp-mocha'),
     parseVLQ = require('parse-base64vlq-mappings'),
     sourceStore = istanbul.Store.create('memory'),
 
@@ -153,7 +152,7 @@ GJC = {
             GJC.initIstanbulHook(options);
 
             return gulp.src(options.src)
-            .pipe(mocha(options.mocha))
+            .pipe(require('gulp-mocha')(options.mocha))
             .on('end', GJC.colloectIstanbulCoverage(options));
         };
     }

@@ -1,11 +1,9 @@
 gulp-jsx-coverage
 =================
 
-Enable istanbul coverage on .JSX or .coffee files when you do mocha tests.
+Enable istanbul coverage on .JSX or .coffee files when you do mocha/jasmine tests.
 
 [![npm version](https://img.shields.io/npm/v/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![Dependency Status](https://david-dm.org/zordius/gulp-jsx-coverage.svg)](https://david-dm.org/zordius/gulp-jsx-coverage) [![Build Status](https://travis-ci.org/zordius/gulp-jsx-coverage.svg?branch=master)](https://travis-ci.org/zordius/gulp-jsx-coverage) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.txt)
-
-**This is not a gulp plugin, it just a task creator to help you deal with istanbul instrumenter and collect coverage report in gulp**
 
 Features
 --------
@@ -27,13 +25,13 @@ npm install gulp-jsx-coverage mocha --save-dev
 ```
 
 * You will need to install <a href="https://www.npmjs.com/package/coffee-script">coffee-script</a> when you require('foobar.coffee') or write tests as foobar.coffee
-
-Usage
------
 * The golden rule: **Use .jsx as ext name** , require('file.jsx')
 * The golden rule: **Use .coffee as ext name** , require('file.coffee')
 * Regular JavaScript files with .js extension may use ES6 features, including mocha tests
 * No need to use transform tools to register .jsx or .coffee for require() at library or util or module files, do this only at application or server.js.
+
+Usage: General Mocha Test Creator
+---------------------------------
 
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
@@ -73,8 +71,24 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
 }));
 ```
 
-Live Example
-------------
+Usage: Other Testing Frameworks
+-------------------------------
+
+```javascript
+var GJC = require('gulp-jsx-coverage');
+var jasmine = require('gulp-jasmine');
+
+gulp.task('my_jasmine_tests', function () {
+    GJC.initIstanbulHook(GJCoptions); // Refer to previous gulp-jsx-coverage options
+
+    return gulp.src('test/*.js')
+    .pipe(jasmine(jasmineOptions))
+    .on('end', GJC.colloectIstanbulCoverage(options));
+});
+```
+
+Live Example: mocha
+-------------------
 
 ```sh
 git clone https://github.com/zordius/gulp-jsx-coverage.git
@@ -121,3 +135,4 @@ All files       |        80 |       100 |     66.67 |        80 |
 
 * Check <a href="gulpfile.js">gulpfile.js</a> for the sample input.
 * Check <a href="http://zordius.github.io/gulp-jsx-coverage/lcov-report/">coverage report</a> directory for the sample output.
+
