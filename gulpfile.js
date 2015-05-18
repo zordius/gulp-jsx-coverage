@@ -1,5 +1,5 @@
 // Mocha test example
-require('gulp').task('default', require('./index').createTask({
+require('gulp').task('mocha_tests', require('./index').createTask({
     src: ['test/test1.js', 'test/test2.jsx', 'test/test3.coffee'],
     istanbul: {
         coverageVariable: '__MY_TEST_COVERAGE__',

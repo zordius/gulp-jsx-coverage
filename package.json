@@ -25,8 +25,9 @@
     "CoffeeScript"
   ],
   "scripts": {
-    "test": "gulp",
-    "jas": "gulp jasmine_tests",
+    "test": "gulp mocha_tests;gulp jasmine_tests",
+    "mocha": "gulp mocha_tests",
+    "jasmine": "gulp jasmine_tests",
     "lint": "jshint"
   },
   "main": "index.js",
