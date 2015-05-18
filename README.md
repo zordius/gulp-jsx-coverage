@@ -94,7 +94,7 @@ Live Example: mocha
 git clone https://github.com/zordius/gulp-jsx-coverage.git
 cd gulp-jsx-coverage
 npm install
-npm test
+npm run mocha_test
 ```
 
 **Output**:
