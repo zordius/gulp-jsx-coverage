@@ -10,7 +10,7 @@ describe('target (tested by test1.js)', () => {
         done();
     });
 
-    it.skip('should not show coverage info for test1.js', function(){
+    xit('should not show coverage info for test1.js', function(){
       console.log('test1.js is not included in coverage report');
     });
 

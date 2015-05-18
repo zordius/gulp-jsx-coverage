@@ -38,7 +38,7 @@ line string!
         assert.equal('6', node.getDOMNode().querySelector('div').innerHTML);
     });
 
-    it.skip('should not show coverage info for test2.jsx', function () {
+    xit('should not show coverage info for test2.jsx', function () {
         console.log('test2.jsx is not included in coverage report');
     });
 });
