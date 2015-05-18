@@ -1,6 +1,14 @@
 HISTORY
 =======
 
+0.1.3 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.1.3
+   * new .initIstanbulHook() and .colloectIstanbulCoverage() API
+   * support any test frameworks
+   * add jasmine tests example
+
+0.1.2 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.1.2
+   * update dependency (babel)
+
 0.1.1 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.1.1
    * update dependency (babel, gulp, istanbul)
    * update devDependency (mocha, coffee-script, jsdom)
