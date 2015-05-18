@@ -26,6 +26,7 @@
   ],
   "scripts": {
     "test": "gulp",
+    "jas": "gulp jasmine_tests",
     "lint": "jshint"
   },
   "main": "index.js",
@@ -38,6 +39,7 @@
     "gulp-mocha": "2.0.0"
   },
   "devDependencies": {
+    "gulp-jasmine": "2.0.1",
     "mocha": "2.1.0",
     "coffee-script": "1.9.1",
     "react": "0.12.2",
