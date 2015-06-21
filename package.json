@@ -20,6 +20,7 @@
     "6to5",
     "jsx",
     "istanbul",
+    "coverage",
     "mocha",
     "gulp",
     "CoffeeScript"
