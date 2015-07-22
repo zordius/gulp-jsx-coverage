@@ -22,7 +22,7 @@ require('gulp').task('mocha_tests', require('./index').createTask({
         reporter: 'spec'
     },
     babel: {
-        sourceMap: 'inline'
+        sourceMap: 'both'
     },
     coffee: {
         sourceMap: true
@@ -52,7 +52,7 @@ var GJCoptions = {
         directory: 'coverage'
     },
     babel: {
-        sourceMap: 'inline'
+        sourceMap: 'both'
     },
     coffee: {
         sourceMap: true
