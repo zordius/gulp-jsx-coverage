@@ -6,6 +6,9 @@ var gulp = require('gulp'),
     istanbul = require('istanbul'),
     parseVLQ = require('parse-base64vlq-mappings'),
     sourceStore = istanbul.Store.create('memory'),
+    sourceMapCache = {},
+    mochaUtils = require('mocha/lib/utils'),
+    oldMochaStackTraceFilter = mochaUtils.stackTraceFilter,
 
 getDataURI = function (sourceMap) {
     return 'data:application/json;base64,' + new Buffer(unescape(encodeURIComponent(sourceMap)), 'binary').toString('base64');
@@ -29,18 +32,15 @@ betterIndent = function (string, loc) {
     return string + (new Array(newloc - size + 1)).join(' ');
 },
 
-addSourceComments = function (source) {
-    var sourceComment = source.match(/\n\/\/# sourceMappingURL=data:application\/json;base64,(.+)/),
-        sourceMap,
-        oldlines,
+addSourceComments = function (source, sourceMap) {
+    var oldlines,
         lines = source.split(/\n/),
         mappings = [],
         loc,
         line,
         outputs = [];
 
-    if (sourceComment) {
-        sourceMap = JSON.parse(new Buffer(sourceComment[1], 'base64').toString('utf8'));
+    if (sourceMap) {
         oldlines = sourceMap.sourcesContent[0].split(/\n/);
         parseVLQ(sourceMap.mappings).forEach(function (P) {
             mappings[P.generated.line] = P.original.line;
@@ -78,6 +78,7 @@ initIstanbulHookHack = function (options) {
 
     global[options.istanbul.coverageVariable] = {};
     sourceStore.dispose();
+    sourceMapCache = {};
 
     Module._extensions['.js'] = function (module, filename) {
         var srcCache = sourceStore.map[filename],
@@ -98,9 +99,11 @@ initIstanbulHookHack = function (options) {
 
         if (filename.match(babelFiles.include) && !filename.match(babelFiles.exclude)) {
             try {
-                src = babel.transform(src, Object.assign({
+                tmp = babel.transform(src, Object.assign({
                     filename: filename
-                }, options.babel)).code;
+                }, options.babel));
+                sourceMapCache[filename] = tmp.map;
+                src = tmp.code;
             } catch (e) {
                 throw new Error('Error when transform es6/jsx ' + filename + ': ' + e.toString());
             }
@@ -109,6 +112,7 @@ initIstanbulHookHack = function (options) {
         if (filename.match(coffeeFiles.include) && !filename.match(coffeeFiles.exclude)) {
             try {
                 tmp = require('coffee-script').compile(src, options.coffee);
+                sourceMapCache[filename] = tmp.v3SourceMap;
                 src = tmp.js + '\n//# sourceMappingURL=' + getDataURI(fixSourceMapContent(tmp.v3SourceMap, src));
             } catch (e) {
                 throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
@@ -117,7 +121,7 @@ initIstanbulHookHack = function (options) {
 
         // Don't instrument files that aren't meant to be
         if (!filename.match(options.istanbul.exclude)) {
-            sourceStore.set(filename, addSourceComments(src));
+            sourceStore.set(filename, addSourceComments(src, sourceMapCache[filename]));
             try {
                 src = instrumenter.instrumentSync(src, filename);
             } catch (e) {
@@ -127,6 +131,14 @@ initIstanbulHookHack = function (options) {
 
         module._compile(src, filename);
     };
+},
+
+stackDumper = function (stack) {
+    return stack;
+},
+
+getCustomizedMochaStackTraceFilter = function () {
+    return stackDumper;
 },
 
 GJC = {
@@ -150,11 +162,20 @@ GJC = {
             if ('function' === (typeof options.cleanup)) {
                 options.cleanup(this);
             }
+
+            GJC.disableStackTrace();
         }
+    },
+    disableStackTrace: function () {
+        mochaUtils.stackTraceFilter = oldMochaStackTraceFilter;
+    },
+    enableStackTrace: function () {
+        mochaUtils.stackTraceFilter = getCustomizedMochaStackTraceFilter;
     },
     createTask: function (options) {
         return function () {
             GJC.initIstanbulHook(options);
+            GJC.enableStackTrace();
 
             return gulp.src(options.src)
             .pipe(require('gulp-mocha')(options.mocha))
