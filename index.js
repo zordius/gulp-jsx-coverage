@@ -80,7 +80,8 @@ initIstanbulHookHack = function (options) {
     sourceStore.dispose();
 
     Module._extensions['.js'] = function (module, filename) {
-        var src = fs.readFileSync(filename, {encoding: 'utf8'}),
+        var srcCache = sourceStore.map[filename],
+            src = srcCache || fs.readFileSync(filename, {encoding: 'utf8'}),
             babelFiles = Object.assign({
                 include: /\.jsx?$/,
                 exclude: /node_modules/
@@ -90,6 +91,10 @@ initIstanbulHookHack = function (options) {
                 exclude: /^$/
             }, options.transpile ? options.transpile.coffee : undefined),
             tmp;
+
+        if (srcCache) {
+            return;
+        }
 
         if (filename.match(babelFiles.include) && !filename.match(babelFiles.exclude)) {
             try {
