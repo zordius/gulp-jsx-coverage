@@ -43,6 +43,10 @@ line string!
     });
 
     it('should exception and failed', function () {
-        throw new Error('hohoho error!');
+        `hohoho
+ this is
+ multi line
+ error!`.notAFunction();
     });
+
 });
