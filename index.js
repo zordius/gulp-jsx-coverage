@@ -7,8 +7,6 @@ var gulp = require('gulp'),
     parseVLQ = require('parse-base64vlq-mappings'),
     sourceStore = istanbul.Store.create('memory'),
     sourceMapCache = {},
-    mochaUtils = require('mocha/lib/utils'),
-    oldMochaStackTraceFilter = mochaUtils.stackTraceFilter,
 
 getDataURI = function (sourceMap) {
     return 'data:application/json;base64,' + new Buffer(unescape(encodeURIComponent(sourceMap)), 'binary').toString('base64');
@@ -164,6 +162,7 @@ getCustomizedMochaStackTraceFilter = function () {
 },
 
 GJC = {
+    oldMochaStackTraceFilter: undefined,
     initIstanbulHook: function (options) {
         initIstanbulHookHack(options);
     },
@@ -189,10 +188,15 @@ GJC = {
         }
     },
     disableStackTrace: function () {
-        mochaUtils.stackTraceFilter = oldMochaStackTraceFilter;
+        if (GJC.oldMochaStackTraceFilter) {
+            require('mocha/lib/utils').stackTraceFilter = GJC.oldMochaStackTraceFilter;
+        }
     },
     enableStackTrace: function () {
-        mochaUtils.stackTraceFilter = getCustomizedMochaStackTraceFilter;
+        if (!GJC.oldMochaStackTraceFilter) {
+            GJC.oldMochaStackTraceFilter = require('mocha/lib/utils').stackTraceFilter;
+        }
+        require('mocha/lib/utils').stackTraceFilter = getCustomizedMochaStackTraceFilter;
     },
     createTask: function (options) {
         return function () {
