@@ -189,6 +189,10 @@ GJC = {
                 options.cleanup(this);
             }
 
+            if (options.threshold) {
+                GJC.failWithThreshold(options.threshold, options.thresholdType).apply(this);
+            }
+
             GJC.disableStackTrace();
         }
     },
@@ -210,7 +214,10 @@ GJC = {
                 return;
             }
             if (finalSummary[T].pct < threshold) {
-                this.emit('error', new Error(T + ' coverage ' + finalSummary[T].pct + '% lower than threshold ' + threshold + '%!'));
+                this.emit('error', new (require('gulp-util').PluginError)({
+                    plugin: 'gulp-jsx-coverage',
+                    message: T + ' coverage ' + finalSummary[T].pct + '% is lower than threshold ' + threshold + '%!'
+                }));
             }
         }
     },
