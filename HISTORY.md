@@ -1,6 +1,13 @@
 HISTORY
 =======
 
+0.2.0 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.0
+   * sourceMaps on stack traces when mocha test failed
+   * prevent error when mocha is not installed
+   * prevent error when babel sourceMap is not enabled
+   * prevent error when coffee sourceMap is not enabled
+   * new .enableStackTrace() and .disableStackTrace() API
+
 0.1.3 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.1.3
    * new .initIstanbulHook() and .colloectIstanbulCoverage() API
    * support any test frameworks
