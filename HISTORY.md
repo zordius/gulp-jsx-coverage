@@ -1,6 +1,12 @@
 HISTORY
 =======
 
+0.2.1 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.1
+   * support coverage threshold
+   * new option: options.threshold
+   * new option: options.thresholdType
+   * new .failWithThreshold() API
+
 0.2.0 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.0
    * sourceMaps on stack traces when mocha test failed
    * prevent error when mocha is not installed
