@@ -40,7 +40,7 @@ addSourceComments = function (source, sourceMap) {
         line,
         outputs = [];
 
-    if (sourceMap) {
+    if (sourceMap && sourceMap.sourceContent) {
         sourceMap.newLines = lines.slice(0);
         oldlines = sourceMap.sourcesContent[0].split(/\n/);
         parseVLQ(sourceMap.mappings).forEach(function (P) {
@@ -106,7 +106,7 @@ initIstanbulHookHack = function (options) {
                 tmp = babel.transform(src, Object.assign({
                     filename: filename
                 }, options.babel));
-                srcCache = tmp.map;
+                srcCache = tmp.map || 1;
                 src = tmp.code;
             } catch (e) {
                 throw new Error('Error when transform es6/jsx ' + filename + ': ' + e.toString());
@@ -116,7 +116,7 @@ initIstanbulHookHack = function (options) {
         if (filename.match(coffeeFiles.include) && !filename.match(coffeeFiles.exclude)) {
             try {
                 tmp = require('coffee-script').compile(src, options.coffee);
-                srcCache = fixSourceMapContent(tmp.v3SourceMap, src);
+                srcCache = tmp.v3SourceMap ? fixSourceMapContent(tmp.v3SourceMap, src) : 1;
                 src = tmp.js + '\n//# sourceMappingURL=' + getDataURI(JSON.stringify(srcCache));
             } catch (e) {
                 throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
