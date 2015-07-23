@@ -141,7 +141,7 @@ All files       |        80 |       100 |     66.67 |        80 |
 Upgrade Notice
 --------------
 
-** 0.2.0 **
+**0.2.0**
 
 * the sourceMap stack trace feature requires:
   * mocha >= 2.2.2
