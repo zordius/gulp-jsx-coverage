@@ -14,6 +14,7 @@ Features
 * Customized everything by options
 * Extract sourceMaps to hint original codes in istanbul reports
 * **NEW!** sourceMaps on stack traces when mocha test failed
+* **NEW!** support coverage threshold
 
 <img src="demo1.png" title="hint original codes in istanbul reports (jsx/es6)" />
 <img src="demo2.png" title="hint original codes in istanbul reports (coffee)" />
@@ -42,6 +43,12 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         coverageVariable: '__MY_TEST_COVERAGE__',
         exclude: /node_modules|test[0-9]/            // do not instrument these files
     },
+
+    threshold: 80,                                   // fail the task when coverage lower than this
+                                                     // default is no threshold
+    thresholdType: 'functions',                      // one of 'lines', 'statements', 'functions', 'banches'
+                                                     // default is 'lines'
+
     transpile: {                                     // this is default whitelist/blacklist for transpilers
         babel: {
             include: /\.jsx?$/,
