@@ -57,7 +57,7 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         reporter: 'spec'
     },
     babel: {                                         // will pass to babel
-        sourceMap: 'inline'                          // get hints in HTML covarage reports
+        sourceMap: 'both'                            // get hints in covarage reports or error stack
     },
     coffee: {                                        // will pass to coffee.compile
         sourceMap: true                              // true to get hints in HTML coverage reports

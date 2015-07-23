@@ -18,7 +18,7 @@ fixSourceMapContent = function (sourceMap, source) {
     var map = JSON.parse(sourceMap);
 
     map.sourcesContent = [source];
-    return JSON.stringify(map);
+    return map;
 },
 
 betterIndent = function (string, loc) {
@@ -65,6 +65,8 @@ addSourceComments = function (source, sourceMap) {
             // Add comment to hint original code
             lines[I-1] = line + '// ' + ((V!==I) ? ('Line ' + V + ': ') : '') + oldlines[V-1];
         });
+        sourceMap.linemappings = mappings;
+        sourceMapCache[sourceMap.file] = sourceMap;
         source = lines.join('\n').replace(/\/\/# sourceMappingURL=.+/, '// SourceMap was distributed to comments by gulp-jsx-coverage');
     }
 
@@ -102,7 +104,7 @@ initIstanbulHookHack = function (options) {
                 tmp = babel.transform(src, Object.assign({
                     filename: filename
                 }, options.babel));
-                sourceMapCache[filename] = tmp.map;
+                srcCache = tmp.map;
                 src = tmp.code;
             } catch (e) {
                 throw new Error('Error when transform es6/jsx ' + filename + ': ' + e.toString());
@@ -112,16 +114,19 @@ initIstanbulHookHack = function (options) {
         if (filename.match(coffeeFiles.include) && !filename.match(coffeeFiles.exclude)) {
             try {
                 tmp = require('coffee-script').compile(src, options.coffee);
-                sourceMapCache[filename] = tmp.v3SourceMap;
-                src = tmp.js + '\n//# sourceMappingURL=' + getDataURI(fixSourceMapContent(tmp.v3SourceMap, src));
+                srcCache = fixSourceMapContent(tmp.v3SourceMap, src);
+                src = tmp.js + '\n//# sourceMappingURL=' + getDataURI(JSON.stringify(srcCache));
             } catch (e) {
                 throw new Error('Error when transform coffee ' + filename + ': ' + e.toString());
             }
         }
 
+        if (srcCache) {
+            sourceStore.set(filename, addSourceComments(src, srcCache));
+        }
+
         // Don't instrument files that aren't meant to be
         if (!filename.match(options.istanbul.exclude)) {
-            sourceStore.set(filename, addSourceComments(src, sourceMapCache[filename]));
             try {
                 src = instrumenter.instrumentSync(src, filename);
             } catch (e) {
@@ -134,7 +139,15 @@ initIstanbulHookHack = function (options) {
 },
 
 stackDumper = function (stack) {
-    return stack;
+    return stack.replace(/\((.+?):(\d+):(\d+)\)/g, function (M, F, L, C) {
+        var sourcemap = sourceMapCache[F];
+
+        if (!sourcemap || (sourcemap.linemappings[L - 1] === undefined)) {
+            return M;
+        }
+
+        return '(' + F + ':' + (sourcemap.linemappings[L - 1] + 1) + ':-1)';
+    });
 },
 
 getCustomizedMochaStackTraceFilter = function () {

@@ -41,4 +41,8 @@ line string!
     it.skip('should not show coverage info for test2.jsx', function () {
         console.log('test2.jsx is not included in coverage report');
     });
+
+    it('should exception and failed', function () {
+        throw new Error('hohoho error!');
+    });
 });
