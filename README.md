@@ -15,9 +15,9 @@ Features
 * Extract sourceMaps to hint original codes in istanbul reports
 * **NEW!** sourceMaps on stack traces when mocha test failed
 
-<img src="demo1.png" alt="hint original codes in istanbul reports (jsx/es6)" />
-<img src="demo2.png" alt="hint original codes in istanbul reports (coffee)" />
-<img src="demo3.png" alt="sourceMaps on stack traces when mocha test failed" />
+<img src="demo1.png" title="hint original codes in istanbul reports (jsx/es6)" />
+<img src="demo2.png" title="hint original codes in istanbul reports (coffee)" />
+<img src="demo3.png" title="sourceMaps on stack traces when mocha test failed" />
 
 Install
 -------
