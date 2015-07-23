@@ -13,10 +13,11 @@ Features
 * Use <a href="https://github.com/babel/babel">babel (6to5)</a> to transpile js and jsx files so you can use <a href="https://babeljs.io/docs/learn-es6/">ES6 features</a> inside your .js and .jsx files!
 * Customized everything by options
 * Extract sourceMaps to hint original codes in istanbul reports
-* **NEW** sourceMaps on stack traces when mocha test failed
+* **NEW!** sourceMaps on stack traces when mocha test failed
 
 <img src="demo1.png" />
 <img src="demo2.png" />
+<img src="demo3.png" />
 
 Install
 -------
