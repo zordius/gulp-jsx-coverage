@@ -40,7 +40,7 @@ addSourceComments = function (source, sourceMap) {
         line,
         outputs = [];
 
-    if (sourceMap && sourceMap.sourceContent) {
+    if (sourceMap && sourceMap.sourcesContent) {
         sourceMap.newLines = lines.slice(0);
         oldlines = sourceMap.sourcesContent[0].split(/\n/);
         parseVLQ(sourceMap.mappings).forEach(function (P) {
