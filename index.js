@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     istanbul = require('istanbul'),
     parseVLQ = require('parse-base64vlq-mappings'),
     sourceStore = istanbul.Store.create('memory'),
+    finalSummary = undefined,
     sourceMapCache = {},
 
 getDataURI = function (sourceMap) {
@@ -173,6 +174,10 @@ GJC = {
 
             collector.add(global[options.istanbul.coverageVariable]);
 
+            finalSummary = istanbul.utils.mergeSummaryObjects.apply(null, collector.files().map(function (F) {
+                return istanbul.utils.summarizeFileCoverage(collector.fileCoverageFor(F));
+            }));
+
             options.coverage.reporters.forEach(function (R) {
                 istanbul.Report.create(R, {
                     sourceStore: sourceStore,
@@ -197,6 +202,17 @@ GJC = {
             GJC.oldMochaStackTraceFilter = require('mocha/lib/utils').stackTraceFilter;
         }
         require('mocha/lib/utils').stackTraceFilter = getCustomizedMochaStackTraceFilter;
+    },
+    failWithThreshold: function (threshold, type) {
+        return function () {
+            var T = type || 'lines';
+            if (!finalSummary || !threshold) {
+                return;
+            }
+            if (finalSummary[T].pct < threshold) {
+                this.emit('error', new Error(T + ' coverage ' + finalSummary[T].pct + '% lower than threshold ' + threshold + '%!'));
+            }
+        }
     },
     createTask: function (options) {
         return function () {
