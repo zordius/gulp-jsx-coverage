@@ -13,7 +13,7 @@ Features
 * Use <a href="https://github.com/babel/babel">babel (6to5)</a> to transpile js and jsx files so you can use <a href="https://babeljs.io/docs/learn-es6/">ES6 features</a> inside your .js and .jsx files!
 * Customized everything by options
 * Extract sourceMaps to hint original codes in istanbul reports
-* **NEW** sourceMaps on strack traces when mocha test failed
+* **NEW** sourceMaps on stack traces when mocha test failed
 
 <img src="demo1.png" />
 <img src="demo2.png" />
@@ -137,7 +137,11 @@ All files       |        80 |       100 |     66.67 |        80 |
 * Check <a href="gulpfile.js">gulpfile.js</a> for the sample input.
 * Check <a href="http://zordius.github.io/gulp-jsx-coverage/lcov-report/">coverage report</a> directory for the sample output.
 
-Upgrade Notes
--------------
+Upgrade Notice
+--------------
 
+** 0.2.0 **
 
+* the sourceMap stack trace feature requires:
+  * mocha >= 2.2.2
+  * the options.babel.sourceMap should be changed from 'inline' to 'both'
