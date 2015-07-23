@@ -41,6 +41,7 @@ addSourceComments = function (source, sourceMap) {
         outputs = [];
 
     if (sourceMap) {
+        sourceMap.newLines = lines.slice(0);
         oldlines = sourceMap.sourcesContent[0].split(/\n/);
         parseVLQ(sourceMap.mappings).forEach(function (P) {
             mappings[P.generated.line] = P.original.line;
@@ -66,6 +67,7 @@ addSourceComments = function (source, sourceMap) {
             lines[I-1] = line + '// ' + ((V!==I) ? ('Line ' + V + ': ') : '') + oldlines[V-1];
         });
         sourceMap.linemappings = mappings;
+        sourceMap.oldLines = oldlines;
         sourceMapCache[sourceMap.file] = sourceMap;
         source = lines.join('\n').replace(/\/\/# sourceMappingURL=.+/, '// SourceMap was distributed to comments by gulp-jsx-coverage');
     }
@@ -141,12 +143,19 @@ initIstanbulHookHack = function (options) {
 stackDumper = function (stack) {
     return stack.replace(/\((.+?):(\d+):(\d+)\)/g, function (M, F, L, C) {
         var sourcemap = sourceMapCache[F];
+        var l = 0;
 
-        if (!sourcemap || (sourcemap.linemappings[L - 1] === undefined)) {
+        if (!sourcemap) {
             return M;
         }
 
-        return '(' + F + ':' + (sourcemap.linemappings[L - 1] + 1) + ':-1)';
+        l = sourcemap.linemappings[L - 1];
+
+        if (l === undefined) {
+            return M + '\nTRANSPILED: ' + sourcemap.newLines[L - 1];
+        }
+
+        return '(' + F + ':' + (l + 1) + ':-1)' + '\nORIGINALSRC: ' + sourcemap.oldLines[l] + '\nTRANSPILED : ' + sourcemap.newLines[L - 1] + '\t// line ' + L + ',' + C + '\n' + (new Array(C * 1 + 13)).join('-') + '^';
     });
 },
 
