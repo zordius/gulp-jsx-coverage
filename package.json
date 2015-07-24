@@ -24,6 +24,8 @@
     "coverage",
     "mocha",
     "jasmine",
+    "sourceMap",
+    "stack trace",
     "gulp",
     "CoffeeScript"
   ],
