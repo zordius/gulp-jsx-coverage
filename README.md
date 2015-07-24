@@ -9,12 +9,12 @@ Features
 --------
 
 * Help you create a gulp task to handle mocha testing + istanbul coverage
-* Transpile .jsx, .coffee, and .js (using ES6) files on the fly
-* Use <a href="https://github.com/babel/babel">babel (6to5)</a> to transpile js and jsx files so you can use <a href="https://babeljs.io/docs/learn-es6/">ES6 features</a> inside your .js and .jsx files!
-* Customized everything by options
+* Transpile .jsx, .coffee, and ES6 .js files on the fly
+* Use <a href="https://github.com/babel/babel">babel (6to5)</a> to transpile .js and .jsx files so you can use <a href="https://babeljs.io/docs/learn-es6/">ES6 features</a> inside your .js and .jsx files!
+* Customize everything by options
 * Extract sourceMaps to hint original codes in istanbul reports
-* **NEW!** sourceMaps on stack traces when mocha test failed
-* **NEW!** support coverage threshold
+* sourceMaps on stack traces when mocha test failed
+* coverage threshold
 
 <img src="demo1.png" title="hint original codes in istanbul reports (jsx/es6)" />
 <img src="demo2.png" title="hint original codes in istanbul reports (coffee)" />
