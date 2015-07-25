@@ -1,6 +1,9 @@
 HISTORY
 =======
 
+2015-07-25 0.2.2 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.2
+   * unlock strict depdency
+
 2015-07-23 0.2.1 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.1
    * support coverage threshold
    * new option: options.threshold
