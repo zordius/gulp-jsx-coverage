@@ -52,10 +52,12 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     transpile: {                                     // this is default whitelist/blacklist for transpilers
         babel: {
             include: /\.jsx?$/,
-            exclude: /node_modules/
+            exclude: /node_modules/,
+            omitExt: false
         },
         coffee: {
-            include: /\.coffee$/
+            include: /\.coffee$/,
+            omitExt: false
         }
     },
     coverage: {
