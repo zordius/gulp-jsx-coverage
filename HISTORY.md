@@ -1,6 +1,10 @@
 HISTORY
 =======
 
+2015-08-06 0.2.3 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.3
+   * new option: options.transpile.babel.omitExt
+   * new option: options.transpile.coffee.omitExt
+
 2015-07-25 0.2.2 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.2
    * unlock strict dependency
 
