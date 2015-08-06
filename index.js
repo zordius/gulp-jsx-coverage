@@ -88,11 +88,13 @@ initIstanbulHookHack = function (options) {
             src = srcCache || fs.readFileSync(filename, {encoding: 'utf8'}),
             babelFiles = Object.assign({
                 include: /\.jsx?$/,
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                omitExt: false
             }, options.transpile ? options.transpile.babel : undefined),
             coffeeFiles = Object.assign({
                 include: /\.coffee$/,
-                exclude: /^$/
+                exclude: /^$/,
+                omitExt: false
             }, options.transpile ? options.transpile.coffee : undefined),
             tmp;
 
