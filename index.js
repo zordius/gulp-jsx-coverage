@@ -77,25 +77,21 @@ addSourceComments = function (source, sourceMap) {
 // Never use node-jsx or other transform in your testing code!
 initIstanbulHookHack = function (options) {
     var Module = require('module'),
-        instrumenter = new istanbul.Instrumenter(options.istanbul);
+        instrumenter = new istanbul.Instrumenter(options.istanbul),
+        babelFiles = Object.assign({
+            include: /\.jsx?$/,
+            exclude: /node_modules/,
+            omitExt: false
+        }, options.transpile ? options.transpile.babel : undefined),
+        coffeeFiles = Object.assign({
+            include: /\.coffee$/,
+            exclude: /^$/,
+            omitExt: false
+        }, options.transpile ? options.transpile.coffee : undefined),
 
-    global[options.istanbul.coverageVariable] = {};
-    sourceStore.dispose();
-    sourceMapCache = {};
-
-    Module._extensions['.js'] = function (module, filename) {
+    moduleLoader = function (module, filename) {
         var srcCache = sourceStore.map[filename],
             src = srcCache || fs.readFileSync(filename, {encoding: 'utf8'}),
-            babelFiles = Object.assign({
-                include: /\.jsx?$/,
-                exclude: /node_modules/,
-                omitExt: false
-            }, options.transpile ? options.transpile.babel : undefined),
-            coffeeFiles = Object.assign({
-                include: /\.coffee$/,
-                exclude: /^$/,
-                omitExt: false
-            }, options.transpile ? options.transpile.coffee : undefined),
             tmp;
 
         if (srcCache) {
@@ -139,6 +135,12 @@ initIstanbulHookHack = function (options) {
 
         module._compile(src, filename);
     };
+
+    global[options.istanbul.coverageVariable] = {};
+    sourceStore.dispose();
+    sourceMapCache = {};
+
+    Module._extensions['.js'] = moduleLoader;
 },
 
 stackDumper = function (stack) {
