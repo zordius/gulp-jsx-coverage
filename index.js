@@ -141,6 +141,16 @@ initIstanbulHookHack = function (options) {
     sourceMapCache = {};
 
     Module._extensions['.js'] = moduleLoader;
+    if (babelFiles.omitExt) {
+        babelFiles.omitExt.forEach(function (V) {
+            Module._extensions[V] = moduleLoader;
+        });
+    }
+    if (coffeeFiles.omitExt) {
+        coffeeFiles.omitExt.forEach(function (V) {
+            Module._extensions[V] = moduleLoader;
+        });
+    }
 },
 
 stackDumper = function (stack) {
