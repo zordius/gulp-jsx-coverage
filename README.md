@@ -53,8 +53,8 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         babel: {
             include: /\.jsx?$/,
             exclude: /node_modules/,
-            omitExt: false
-        },
+            omitExt: false                           // if you wanna omit file ext when require(), put an array
+        },                                           // of file exts here. Ex: ['.jsx', '.es6']
         coffee: {
             include: /\.coffee$/,
             omitExt: false

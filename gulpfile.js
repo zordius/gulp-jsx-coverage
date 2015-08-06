@@ -8,7 +8,8 @@ require('gulp').task('mocha_tests', require('./index').createTask({
     transpile: {
         babel: {
             include: /\.jsx?$/,
-            exclude: /node_modules/
+            exclude: /node_modules/,
+            omitExt: ['.jsx']
         },
         coffee: {
             include: /\.coffee$/
