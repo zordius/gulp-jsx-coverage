@@ -1,6 +1,9 @@
 HISTORY
 =======
 
+2015-08-17 0.2.4 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.4
+   * prevent error when empty files are included
+
 2015-08-06 0.2.3 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.3
    * new option: options.transpile.babel.omitExt
    * new option: options.transpile.coffee.omitExt
