@@ -38,7 +38,7 @@
   "main": "index.js",
   "dependencies": {
     "parse-base64vlq-mappings": "0.1.4",
-    "object.assign": "1.1.1",
+    "object.assign": "4.0.1",
     "babel": "^5.0.0",
     "gulp": "^3.9.0",
     "gulp-util": "^3.0.6",
