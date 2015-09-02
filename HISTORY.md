@@ -1,6 +1,9 @@
 HISTORY
 =======
 
+2015-09-02 0.2.5 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.5
+   * update dependency
+
 2015-08-17 0.2.4 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.4
    * prevent error when empty files are included
 
