@@ -1,0 +1,8 @@
+node_modules
+artifacts
+coverage
+
+test
+gulpfile.js
+
+*.png
