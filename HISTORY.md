@@ -1,6 +1,9 @@
 HISTORY
 =======
 
+2015-10-20 0.3.0 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.0
+   * **BREAK CHANGE** rename initIstanbulHookHack to initModuleLoaderHack
+
 2015-09-02 0.2.5 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.2.5
    * update dependency
 

@@ -75,7 +75,7 @@ addSourceComments = function (source, sourceMap) {
 },
 
 // Never use node-jsx or other transform in your testing code!
-initIstanbulHookHack = function (options) {
+initModuleLoaderHack = function (options) {
     var Module = require('module'),
         instrumenter = new istanbul.Instrumenter(options.istanbul),
         babelFiles = Object.assign({
@@ -178,8 +178,8 @@ getCustomizedMochaStackTraceFilter = function () {
 
 GJC = {
     oldMochaStackTraceFilter: undefined,
-    initIstanbulHook: function (options) {
-        initIstanbulHookHack(options);
+    initModuleLoaderHack: function (options) {
+        initModuleLoaderHack(options);
     },
     colloectIstanbulCoverage: function (options) {
         return function () {
@@ -237,7 +237,7 @@ GJC = {
     },
     createTask: function (options) {
         return function () {
-            GJC.initIstanbulHook(options);
+            GJC.initModuleLoaderHack(options);
             GJC.enableStackTrace();
 
             return gulp.src(options.src)
