@@ -5,7 +5,7 @@ var jsdom = require('jsdom').jsdom,
     TestUtils = require('react/addons').addons.TestUtils,
     assert = require('assert'),
     target = require('./target'),
-    Component = require('./Component'),
+    Component = require('./Component.jsx'),
 
 Testlib = {
     renderJSX: function (jsx, context) {
