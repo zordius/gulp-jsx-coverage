@@ -28,13 +28,13 @@ Check this chart to see features when gulp-jsx-coverage work with different cove
 | syntax: coffee-script    | ✅          | ❌        |
 | coverage report          | transpiled | original |
 
-**istanbul+mocha:hint original codes (jsx/es6) in coverage reports**
+* **istanbul+mocha:hint original codes (jsx/es6) in coverage reports**
 <img src="demo1.png" />
-**istanbul+mocha:hint original coffee-script in coverage reports**
+* **istanbul+mocha:hint original coffee-script in coverage reports**
 <img src="demo2.png" />
-**mocha:show original code/line when test failed**
+* **mocha:show original code/line when test failed**
 <img src="demo3.png" />
-**isparta+mocha:show original codes in coverage reports**
+* **isparta+mocha:show original codes in coverage reports**
 <img src="demo4.png" />
 
 Install
