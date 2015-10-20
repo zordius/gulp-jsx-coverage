@@ -3,9 +3,8 @@
 var gulp = require('gulp'),
     fs = require('fs'),
     babel = require('babel'),
-    istanbul = require('istanbul'),
     parseVLQ = require('parse-base64vlq-mappings'),
-    sourceStore = istanbul.Store.create('memory'),
+    sourceStore = undefined,
     finalSummary = undefined,
     sourceMapCache = {},
 
@@ -77,8 +76,10 @@ addSourceComments = function (source, sourceMap) {
 // Never use node-jsx or other transform in your testing code!
 initModuleLoaderHack = function (options) {
     var Module = require('module'),
-        Instrumenter = options.isparta ? require('isparta/lib/instrumenter').Instrumenter : istanbul.Instrumenter,
+        istanbul = require(options.isparta ? 'isparta' : 'istanbul'),
+        Instrumenter = istanbul.Instrumenter,
         instrumenter = new Instrumenter(Object.assign(options.isparta ? {babelOptions: options.babel} : {}, options.istanbul)),
+        sourceStore = istanbul.Store.create('memory'),
         babelFiles = Object.assign({
             include: /\.jsx?$/,
             exclude: /node_modules/,
@@ -186,7 +187,8 @@ GJC = {
     },
     colloectIstanbulCoverage: function (options) {
         return function () {
-            var Collector = istanbul.Collector,
+            var istanbul = require(options.isparta ? 'isparta' : 'istanbul'),
+                Collector = istanbul.Collector,
                 collector = new Collector();
 
             collector.add(global[options.istanbul.coverageVariable]);
