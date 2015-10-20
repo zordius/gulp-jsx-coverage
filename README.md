@@ -17,6 +17,17 @@ Features
 * coverage threshold
 * support isparta **NEW on 0.3.0**
 
+Check this chart to see features when gulp-jsx-coverage work with different coverage tools:
+
+| Features \ Coverage Tool | istanbul   | isparta  |
+| -------------------------|------------|----------|
+| Mocha testing            | ✅          | ✅        |
+| Jasmine testing          | ✅          | ✅        |
+| syntax: jsx              | ✅          | ✅        |
+| syntax: ES6              | ✅          | ✅        |
+| syntax: coffee-script    | ✅          | ❌        |
+| coverage report          | transpiled | original |
+
 <img src="demo1.png" title="hint original codes in istanbul reports (jsx/es6)" />
 <img src="demo2.png" title="hint original codes in istanbul reports (coffee)" />
 <img src="demo3.png" title="sourceMaps on stack traces when mocha test failed" />
