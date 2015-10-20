@@ -45,6 +45,7 @@ npm install gulp-jsx-coverage mocha --save-dev
 ```
 
 * You will need to install <a href="https://www.npmjs.com/package/coffee-script">coffee-script</a> when you require('foobar.coffee') or write tests as foobar.coffee
+* You will need to install <a href="https://github.com/douglasduteil/isparta">isparta</a> when you enable isparta
 * The golden rule: **Use .jsx as ext name** , require('file.jsx')
 * The golden rule: **Use .coffee as ext name** , require('file.coffee')
 * Regular JavaScript files with .js extension may use ES6 features, including mocha tests
