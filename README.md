@@ -111,6 +111,19 @@ gulp.task('my_jasmine_tests', function () {
 });
 ```
 
+Usage: Use Isparta
+------------------
+
+```javascript
+gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
+    src: ['test/**/*.js', 'test/components/*.jsx'],
+    isparta: true,
+    ....
+});
+```
+
+**NOTE: do not support coffee-script when using isparta as coverage tool**
+
 Live Example: mocha
 -------------------
 
