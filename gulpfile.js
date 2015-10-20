@@ -61,7 +61,7 @@ var GJCoptions = {
 };
 
 gulp.task('jasmine_tests', function () {
-    GJC.initIstanbulHook(GJCoptions);
+    GJC.initModuleLoaderHack(GJCoptions);
 
     return gulp.src(['test/test4.js', 'test/test5.jsx', 'test/test6.coffee'])
     .pipe(jasmine())

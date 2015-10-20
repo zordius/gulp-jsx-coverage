@@ -77,7 +77,7 @@ addSourceComments = function (source, sourceMap) {
 // Never use node-jsx or other transform in your testing code!
 initModuleLoaderHack = function (options) {
     var Module = require('module'),
-        instrumenter = new istanbul.Instrumenter(options.istanbul),
+        instrumenter = options.isparta ? new require('isparta/lib/instrumenter')(Object.assign({}, options.istanbul, {babelOptions: options.babel})) : new istanbul.Instrumenter(options.istanbul),
         babelFiles = Object.assign({
             include: /\.jsx?$/,
             exclude: /node_modules/,
@@ -98,7 +98,7 @@ initModuleLoaderHack = function (options) {
             return;
         }
 
-        if (filename.match(babelFiles.include) && !filename.match(babelFiles.exclude)) {
+        if (!options.isparta && filename.match(babelFiles.include) && !filename.match(babelFiles.exclude)) {
             try {
                 tmp = babel.transform(src, Object.assign({
                     filename: filename

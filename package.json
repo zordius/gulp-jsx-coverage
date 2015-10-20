@@ -50,7 +50,8 @@
     "mocha": "2.2.5",
     "coffee-script": "1.9.1",
     "react": "0.12.2",
-    "jsdom": "3.1.2"
+    "jsdom": "3.1.2",
+    "isparta": "3.1.0"
   },
   "engines": {
     "node": ">=0.10.0"
