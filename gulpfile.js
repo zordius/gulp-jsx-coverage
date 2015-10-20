@@ -67,3 +67,17 @@ gulp.task('jasmine_tests', function () {
     .pipe(jasmine())
     .on('end', GJC.colloectIstanbulCoverage(GJCoptions));
 });
+
+gulp.task('mocha_isparta_tests', GJC.createTask(Object.assign({
+    isparta: 1,
+    src: ['test/test1.js', 'test/test2.jsx'],
+}, GJCoptions)));
+
+gulp.task('jasmine_isparta_tests', function () {
+    var GJCIspartaOptions = Object.assign({isparta: 1}, GJCoptions);
+    GJC.initModuleLoaderHack(GJCIspartaOptions);
+
+    return gulp.src(['test/test4.js', 'test/test5.jsx'])
+    .pipe(jasmine())
+    .on('end', GJC.colloectIstanbulCoverage(GJCIspartaOptions));
+});

@@ -30,9 +30,10 @@
     "CoffeeScript"
   ],
   "scripts": {
-    "test": "gulp mocha_tests;gulp jasmine_tests",
+    "test": "gulp mocha_tests;gulp jasmine_tests;gulp mocha_isparta_tests;gulp jasmine_isparta_tests",
     "mocha": "gulp mocha_tests",
     "jasmine": "gulp jasmine_tests",
+    "isparta": "gulp mocha_isparta_tests;gulp jasmine_isparta_tests",
     "lint": "jshint"
   },
   "main": "index.js",
