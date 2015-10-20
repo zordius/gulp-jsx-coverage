@@ -99,15 +99,17 @@ initModuleLoaderHack = function (options) {
             return;
         }
 
-        if (!options.isparta && filename.match(babelFiles.include) && !filename.match(babelFiles.exclude)) {
-            try {
-                tmp = babel.transform(src, Object.assign({
-                    filename: filename
-                }, options.babel));
-                srcCache = tmp.map || 1;
-                src = tmp.code;
-            } catch (e) {
-                throw new Error('Error when transform es6/jsx ' + filename + ': ' + e.toString());
+        if (filename.match(babelFiles.include) && !filename.match(babelFiles.exclude)) {
+            if (!options.sparta || !filename.match(options.istanbul.exclude)) {
+                try {
+                    tmp = babel.transform(src, Object.assign({
+                        filename: filename
+                    }, options.babel));
+                    srcCache = tmp.map || 1;
+                    src = tmp.code;
+                } catch (e) {
+                    throw new Error('Error when transform es6/jsx ' + filename + ': ' + e.toString());
+                }
             }
         }
 
