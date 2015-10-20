@@ -15,7 +15,7 @@ Features
 * Extract sourceMaps to hint original codes in istanbul reports
 * sourceMaps on stack traces when mocha test failed
 * coverage threshold
-* support isparta **NEW on 0.3.0**
+* **0.3.0 NEW** support isparta
 
 Check this chart to see features when gulp-jsx-coverage work with different coverage tools:
 
@@ -28,9 +28,14 @@ Check this chart to see features when gulp-jsx-coverage work with different cove
 | syntax: coffee-script    | ✅          | ❌        |
 | coverage report          | transpiled | original |
 
-<img src="demo1.png" title="hint original codes in istanbul reports (jsx/es6)" />
-<img src="demo2.png" title="hint original codes in istanbul reports (coffee)" />
-<img src="demo3.png" title="sourceMaps on stack traces when mocha test failed" />
+**istanbul+mocha:hint original codes (jsx/es6) in coverage reports**
+<img src="demo1.png" />
+**istanbul+mocha:hint original coffee-script in coverage reports**
+<img src="demo2.png" />
+**mocha:show original code/line when test failed**
+<img src="demo3.png" />
+**isparta+mocha:show original codes in coverage reports**
+<img src="demo4.png" />
 
 Install
 -------
