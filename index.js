@@ -30,7 +30,7 @@ betterIndent = function (string, loc) {
     return string + (new Array(newloc - size + 1)).join(' ');
 },
 
-addSourceComments = function (source, sourceMap) {
+addSourceComments = function (source, sourceMap, filename) {
     var oldlines,
         lines = source.split(/\n/),
         mappings = [],
@@ -66,7 +66,7 @@ addSourceComments = function (source, sourceMap) {
         });
         sourceMap.linemappings = mappings;
         sourceMap.oldLines = oldlines;
-        sourceMapCache[sourceMap.file] = sourceMap;
+        sourceMapCache[filename] = sourceMap;
         source = lines.join('\n').replace(/\/\/# sourceMappingURL=.+/, '// SourceMap was distributed to comments by gulp-jsx-coverage');
     }
 
@@ -125,7 +125,7 @@ initModuleLoaderHack = function (options) {
         }
 
         if (srcCache) {
-            sourceStore.set(filename, addSourceComments(src, srcCache));
+            sourceStore.set(filename, addSourceComments(src, srcCache, filename));
         }
 
         // Don't instrument files that aren't meant to be
