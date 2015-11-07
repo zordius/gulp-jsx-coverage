@@ -19,6 +19,7 @@
     "babel",
     "6to5",
     "es6",
+    "es2015",
     "jsx",
     "istanbul",
     "coverage",

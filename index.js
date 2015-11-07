@@ -109,7 +109,7 @@ initModuleLoaderHack = function (options) {
                     srcCache = tmp.map || 1;
                     src = tmp.code;
                 } catch (e) {
-                    throw new Error('Error when transform es6/jsx ' + filename + ': ' + e.toString());
+                    throw new Error('Error when transform es2015/jsx ' + filename + ': ' + e.toString());
                 }
             }
         }

@@ -14,7 +14,7 @@ describe('target (tested by test1.js)', () => {
       console.log('test1.js is not included in coverage report');
     });
 
-    it('should handle es6 template string correctly', function () {
+    it('should handle es2015 template string correctly', function () {
         assert.equal(`<div>
  <h1>test title</h1>
  <p>this is a test</p>
