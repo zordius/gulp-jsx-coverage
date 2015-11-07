@@ -2,7 +2,8 @@
 
 var jsdom = require('jsdom').jsdom,
     React = require('react'),
-    TestUtils = require('react/addons').addons.TestUtils,
+    ReactDOM = require('react-dom'),
+    TestUtils = require('react-addons-test-utils'),
     assert = require('assert'),
     target = require('./target'),
 
@@ -34,8 +35,8 @@ line string!
 `}</pre>
         </div>);
 
-        assert.equal('Ya!', node.getDOMNode().querySelector('span').innerHTML);
-        assert.equal('6', node.getDOMNode().querySelector('div').innerHTML);
+        assert.equal('Ya!', ReactDOM.findDOMNode(node).querySelector('span').innerHTML);
+        assert.equal('6', ReactDOM.findDOMNode(node).querySelector('div').innerHTML);
     });
 
     xit('should not show coverage info for test2.jsx', function () {
