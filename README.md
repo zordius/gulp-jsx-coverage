@@ -1,7 +1,7 @@
 gulp-jsx-coverage
 =================
 
-Enable istanbul or isparta coverage on ES6/babel or coffee-script files when you do mocha/jasmine tests, also deal with sourceMap for coverage report and stack trace.
+Enable istanbul or isparta coverage on ES2015/babel or coffee-script files when you do mocha/jasmine tests, also deal with sourceMap for coverage report and stack trace.
 
 [![npm version](https://img.shields.io/npm/v/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![npm download](https://img.shields.io/npm/dm/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![Dependency Status](https://david-dm.org/zordius/gulp-jsx-coverage.svg)](https://david-dm.org/zordius/gulp-jsx-coverage) [![Build Status](https://travis-ci.org/zordius/gulp-jsx-coverage.svg?branch=master)](https://travis-ci.org/zordius/gulp-jsx-coverage) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.txt)
 
@@ -9,7 +9,7 @@ Features
 --------
 
 * Help you create a gulp task to handle mocha testing + istanbul coverage
-* Transpile .jsx, .coffee, and ES6 .js files on the fly
+* Transpile .jsx, .coffee, and ES2015 .js files on the fly
 * Use <a href="https://github.com/babel/babel">babel (6to5)</a> to transpile .js and .jsx files so you can use <a href="http://babeljs.io/docs/learn-es2015/">ES2015 features</a> inside your .js and .jsx files!
 * Customize everything by options
 * Extract sourceMaps to hint original codes in istanbul reports
@@ -24,7 +24,7 @@ Check this chart to see features when gulp-jsx-coverage work with different cove
 | Mocha testing            | ✅          | ✅        |
 | Jasmine testing          | ✅          | ✅        |
 | syntax: jsx              | ✅          | ✅        |
-| syntax: ES6              | ✅          | ✅        |
+| syntax: ES2015           | ✅          | ✅        |
 | syntax: coffee-script    | ✅          | ❌        |
 | coverage report          | transpiled | original |
 
@@ -46,10 +46,16 @@ npm install gulp-jsx-coverage mocha --save-dev
 
 * You will need to install <a href="https://www.npmjs.com/package/coffee-script">coffee-script</a> when you require('foobar.coffee') or write tests as foobar.coffee
 * You will need to install <a href="https://github.com/douglasduteil/isparta">isparta</a> when you enable isparta
-* The golden rule: **Use .jsx as ext name** , require('file.jsx')
-* The golden rule: **Use .coffee as ext name** , require('file.coffee')
-* Regular JavaScript files with .js extension may use ES6 features, including mocha tests
-* No need to use transform tools to register .jsx or .coffee for require() at library or util or module files, do this only at application or server.js.
+* Regular JavaScript files with .js extension may use ES2015 features
+
+Best Practices
+--------------
+
+* The golden rule: **Use .jsx as ext name** when jsx syntax inside it. Require it by `require('file.jsx')`.
+* The golden rule: **Use .coffee as ext name** when coffee script inside it. Require it by `require('file.coffee')`.
+* When you develop a module, do not use any module loader hooks. (Refer to <a href="https://babeljs.io/docs/usage/require/">Babel require hook document</a>)
+* Excludes transpiler directories as possible to improve performance.
+* When you develop an application, you may use module loader hooks. But, don't enable the hook when you do testing.
 
 Usage: General Mocha Test Creator
 ---------------------------------
