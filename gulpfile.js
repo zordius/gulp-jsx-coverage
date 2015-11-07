@@ -53,6 +53,7 @@ var GJCoptions = {
         directory: 'coverage'
     },
     babel: {
+        presets: ['es2015', 'react'],
         sourceMap: 'both'
     },
     coffee: {
