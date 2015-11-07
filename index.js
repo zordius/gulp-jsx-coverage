@@ -2,7 +2,7 @@
 
 var gulp = require('gulp'),
     fs = require('fs'),
-    babel = require('babel'),
+    babel = require('babel-core'),
     parseVLQ = require('parse-base64vlq-mappings'),
     sourceStore = undefined,
     finalSummary = undefined,
