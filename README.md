@@ -86,7 +86,8 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     mocha: {                                         // will pass to mocha
         reporter: 'spec'
     },
-    babel: {                                         // will pass to babel
+    babel: {                                         // will pass to babel-core
+        presets: ['es2015', 'react'],                // Use proper presets or plugins for your scripts
         sourceMap: 'both'                            // get hints in covarage reports or error stack
     },
     coffee: {                                        // will pass to coffee.compile
@@ -183,6 +184,9 @@ Upgrade Notice
 --------------
 
 **0.3.0**
+
+* Babel upgraded:
+  * You should add proper options.babel.plugins or options.babel.presets to transpile your script properly. Please refer to http://babeljs.io/docs/plugins/
 
 * API changed:
   * you should rename all initIstanbulHookHack into initModuleLoaderHack
