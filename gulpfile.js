@@ -23,6 +23,7 @@ require('gulp').task('mocha_tests', require('./index').createTask({
         reporter: 'spec'
     },
     babel: {
+        presets: ['es2015', 'react'],
         sourceMap: 'both'
     },
     coffee: {
