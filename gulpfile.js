@@ -2,6 +2,7 @@
 require('gulp').task('mocha_tests', require('./index').createTask({
     src: ['test/test1.js', 'test/test2.jsx', 'test/test3.coffee'],
     istanbul: {
+        preserveComments: true,
         coverageVariable: '__MY_TEST_COVERAGE__',
         exclude: /node_modules|test[0-9]/
     },
@@ -67,7 +68,7 @@ gulp.task('jasmine_tests', function () {
 
     return gulp.src(['test/test4.js', 'test/test5.jsx', 'test/test6.coffee'])
     .pipe(jasmine())
-    .on('end', GJC.colloectIstanbulCoverage(GJCoptions));
+    .on('end', GJC.collectIstanbulCoverage(GJCoptions));
 });
 
 gulp.task('mocha_isparta_tests', GJC.createTask(Object.assign({
@@ -81,5 +82,5 @@ gulp.task('jasmine_isparta_tests', function () {
 
     return gulp.src(['test/test4.js', 'test/test5.jsx'])
     .pipe(jasmine())
-    .on('end', GJC.colloectIstanbulCoverage(GJCIspartaOptions));
+    .on('end', GJC.collectIstanbulCoverage(GJCIspartaOptions));
 });

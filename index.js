@@ -77,9 +77,7 @@ addSourceComments = function (source, sourceMap, filename) {
 initModuleLoaderHack = function (options) {
     var Module = require('module'),
         istanbul = require(options.isparta ? 'isparta' : 'istanbul'),
-        Instrumenter = istanbul.Instrumenter,
-        instrumenter = new Instrumenter(Object.assign(options.isparta ? {babelOptions: options.babel} : {}, options.istanbul)),
-        sourceStore = istanbul.Store.create('memory'),
+        instrumenter = new istanbul.Instrumenter(Object.assign(options.isparta ? {babelOptions: options.babel} : {}, options.istanbul)),
         babelFiles = Object.assign({
             include: /\.jsx?$/,
             exclude: /node_modules/,
@@ -141,6 +139,7 @@ initModuleLoaderHack = function (options) {
     };
 
     global[options.istanbul.coverageVariable] = {};
+    sourceStore = istanbul.Store.create('memory');
     sourceStore.dispose();
     sourceMapCache = {};
 
@@ -185,11 +184,10 @@ GJC = {
     initModuleLoaderHack: function (options) {
         initModuleLoaderHack(options);
     },
-    colloectIstanbulCoverage: function (options) {
+    collectIstanbulCoverage: function (options) {
         return function () {
             var istanbul = require(options.isparta ? 'isparta' : 'istanbul'),
-                Collector = istanbul.Collector,
-                collector = new Collector();
+                collector = new istanbul.Collector();
 
             collector.add(global[options.istanbul.coverageVariable]);
 
@@ -247,7 +245,7 @@ GJC = {
 
             return gulp.src(options.src)
             .pipe(require('gulp-mocha')(options.mocha))
-            .on('end', GJC.colloectIstanbulCoverage(options));
+            .on('end', GJC.collectIstanbulCoverage(options));
         };
     }
 };

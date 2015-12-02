@@ -1,6 +1,11 @@
 HISTORY
 =======
 
+2015-12-02 0.3.2 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.2
+   * update dependency
+   * fix bad coverage report issue when using istanbul 0.3.8+
+   * rename API: .colloectIstanbulCoverage() into .collectIstanbulCoverage()
+
 2015-11-07 0.3.1 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.1
    * update dependency
 
