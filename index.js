@@ -165,13 +165,13 @@ stackDumper = function (stack) {
             return M;
         }
 
-        l = sourcemap.linemappings[L - 1];
+        l = sourcemap.linemappings[L];
 
         if (l === undefined) {
             return M + '\nTRANSPILED: ' + sourcemap.newLines[L - 1];
         }
 
-        return '(' + F + ':' + (l + 1) + ':-1)' + '\nORIGINALSRC: ' + sourcemap.oldLines[l] + '\nTRANSPILED : ' + sourcemap.newLines[L - 1] + '\t// line ' + L + ',' + C + '\n' + (new Array(C * 1 + 13)).join('-') + '^';
+        return '(' + F + ':' + l + ':-1)' + '\nORIGINALSRC: ' + sourcemap.oldLines[l - 1] + '\nTRANSPILED : ' + sourcemap.newLines[L - 1] + '\t// line ' + L + ',' + C + '\n' + (new Array(C * 1 + 13)).join('-') + '^';
     });
 },
 
