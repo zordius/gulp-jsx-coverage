@@ -137,7 +137,7 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
 ```
 
 **NOTE: do not support coffee-script when using isparta as coverage tool**
-* Check <a href="http://zordius.github.io/gulp-jsx-coverage/lcov-report/2/">coverage report</a> directory for the sample output.
+* Check <a href="http://zordius.github.io/gulp-jsx-coverage/2/lcov-report/">coverage report</a> directory for the sample output.
 
 Live Example: mocha
 -------------------
