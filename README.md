@@ -191,6 +191,11 @@ All files       |        80 |       100 |     66.67 |        80 |
 Upgrade Notice
 --------------
 
+**0.3.2**
+
+* API changed:
+  * you should rename all colloectIstanbulCoverage into collectIstanbulCoverage
+
 **0.3.0**
 
 * Babel upgraded:
