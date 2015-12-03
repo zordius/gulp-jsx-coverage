@@ -1,6 +1,9 @@
 HISTORY
 =======
 
+2015-12-03 0.3.4 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.4
+   * fix v0.3.3 isparta coverage report issue
+
 2015-12-02 0.3.3 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.3
    * fix wrong line number when printing mocha stacktrace
 
