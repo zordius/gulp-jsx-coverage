@@ -197,7 +197,7 @@ GJC = {
 
             options.coverage.reporters.forEach(function (R) {
                 istanbul.Report.create(R, {
-                    sourceStore: sourceStore,
+                    sourceStore: options.isparta ? undefined : sourceStore,
                     dir: options.coverage.directory
                 }).writeReport(collector, true);
             });
