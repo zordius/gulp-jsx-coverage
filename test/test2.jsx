@@ -55,7 +55,7 @@ line string!
 
 describe('Component.jsx (tested by test2.jsx)', function () {
     it('should render Hello World', function() {
-       var node = Testlib.renderComponent(Component);
-       assert.equal('Hello World', ReactDOM.findDOMNode(node).innerHTML);
+        var node = Testlib.renderComponent(Component);
+        assert.equal('Hello World', ReactDOM.findDOMNode(node).innerHTML);
     });
 });
