@@ -1,14 +1,14 @@
 'use strict';
 
-var jsdom = require('jsdom').jsdom,
-    React = require('react'),
-    ReactDOM = require('react-dom'),
-    TestUtils = require('react-addons-test-utils'),
-    assert = require('assert'),
-    target = require('./target'),
-    Component = require('./Component.jsx'),
+var jsdom = require('jsdom').jsdom;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var TestUtils = require('react-addons-test-utils');
+var assert = require('assert');
+var target = require('./target');
+var Component = require('./Component.jsx');
 
-Testlib = {
+var Testlib = {
     renderJSX: function (jsx, context) {
         return Testlib.renderComponent(React.createClass({
             displayName: 'TestJSX',
@@ -18,7 +18,7 @@ Testlib = {
     renderComponent: function (react, props, context) {
         var rendered;
         global.document = jsdom('<!DOCTYPE html><html><body></body></html>');
-        global.window = document.parentWindow;
+        global.window = global.document.parentWindow;
         rendered = TestUtils.renderIntoDocument(React.createElement(react, props));
         return TestUtils.findRenderedComponentWithType(rendered, react);
     }

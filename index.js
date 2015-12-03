@@ -1,25 +1,25 @@
 'use strict';
 
-var gulp = require('gulp'),
-    fs = require('fs'),
-    babel = require('babel-core'),
-    parseVLQ = require('parse-base64vlq-mappings'),
-    sourceStore = undefined,
-    finalSummary = undefined,
-    sourceMapCache = {},
+var gulp = require('gulp');
+var fs = require('fs');
+var babel = require('babel-core');
+var parseVLQ = require('parse-base64vlq-mappings');
+var sourceStore = undefined;
+var finalSummary = undefined;
+var sourceMapCache = {};
 
-getDataURI = function (sourceMap) {
+var getDataURI = function (sourceMap) {
     return 'data:application/json;base64,' + new Buffer(unescape(encodeURIComponent(sourceMap)), 'binary').toString('base64');
-},
+};
 
-fixSourceMapContent = function (sourceMap, source) {
+var fixSourceMapContent = function (sourceMap, source) {
     var map = JSON.parse(sourceMap);
 
     map.sourcesContent = [source];
     return map;
-},
+};
 
-betterIndent = function (string, loc) {
+var betterIndent = function (string, loc) {
     var size = string.length,
         newloc = size - (size % 4) + 8;
 
@@ -28,9 +28,9 @@ betterIndent = function (string, loc) {
     }
 
     return string + (new Array(newloc - size + 1)).join(' ');
-},
+};
 
-addSourceComments = function (source, sourceMap, filename) {
+var addSourceComments = function (source, sourceMap, filename) {
     var oldlines,
         lines = source.split(/\n/),
         mappings = [],
@@ -71,25 +71,25 @@ addSourceComments = function (source, sourceMap, filename) {
     }
 
     return source;
-},
+};
 
 // Never use node-jsx or other transform in your testing code!
-initModuleLoaderHack = function (options) {
-    var Module = require('module'),
-        istanbul = require(options.isparta ? 'isparta' : 'istanbul'),
-        instrumenter = new istanbul.Instrumenter(Object.assign(options.isparta ? {babelOptions: options.babel} : {}, options.istanbul)),
-        babelFiles = Object.assign({
-            include: /\.jsx?$/,
-            exclude: /node_modules/,
-            omitExt: false
-        }, options.transpile ? options.transpile.babel : undefined),
-        coffeeFiles = Object.assign({
-            include: /\.coffee$/,
-            exclude: /^$/,
-            omitExt: false
-        }, options.transpile ? options.transpile.coffee : undefined),
+var initModuleLoaderHack = function (options) {
+    var Module = require('module');
+    var istanbul = require(options.isparta ? 'isparta' : 'istanbul');
+    var instrumenter = new istanbul.Instrumenter(Object.assign(options.isparta ? {babelOptions: options.babel} : {}, options.istanbul));
+    var babelFiles = Object.assign({
+        include: /\.jsx?$/,
+        exclude: /node_modules/,
+        omitExt: false
+    }, options.transpile ? options.transpile.babel : undefined);
+    var coffeeFiles = Object.assign({
+        include: /\.coffee$/,
+        exclude: /^$/,
+        omitExt: false
+    }, options.transpile ? options.transpile.coffee : undefined);
 
-    moduleLoader = function (module, filename) {
+    var moduleLoader = function (module, filename) {
         var srcCache = sourceStore.map[filename],
             src = srcCache || fs.readFileSync(filename, {encoding: 'utf8'}),
             tmp;
@@ -154,9 +154,9 @@ initModuleLoaderHack = function (options) {
             Module._extensions[V] = moduleLoader;
         });
     }
-},
+};
 
-stackDumper = function (stack) {
+var stackDumper = function (stack) {
     return stack.replace(/\((.+?):(\d+):(\d+)\)/g, function (M, F, L, C) {
         var sourcemap = sourceMapCache[F];
         var l = 0;
@@ -173,13 +173,13 @@ stackDumper = function (stack) {
 
         return '(' + F + ':' + l + ':-1)' + '\nORIGINALSRC: ' + sourcemap.oldLines[l - 1] + '\nTRANSPILED : ' + sourcemap.newLines[L - 1] + '\t// line ' + L + ',' + C + '\n' + (new Array(C * 1 + 13)).join('-') + '^';
     });
-},
+};
 
-getCustomizedMochaStackTraceFilter = function () {
+var getCustomizedMochaStackTraceFilter = function () {
     return stackDumper;
-},
+};
 
-GJC = {
+var GJC = {
     oldMochaStackTraceFilter: undefined,
     initModuleLoaderHack: function (options) {
         initModuleLoaderHack(options);
@@ -211,7 +211,7 @@ GJC = {
             }
 
             GJC.disableStackTrace();
-        }
+        };
     },
     disableStackTrace: function () {
         if (GJC.oldMochaStackTraceFilter) {
@@ -236,7 +236,7 @@ GJC = {
                     message: T + ' coverage ' + finalSummary[T].pct + '% is lower than threshold ' + threshold + '%!'
                 }));
             }
-        }
+        };
     },
     createTask: function (options) {
         return function () {

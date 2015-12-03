@@ -35,7 +35,7 @@
     "mocha": "gulp mocha_tests",
     "jasmine": "gulp jasmine_tests",
     "isparta": "gulp mocha_isparta_tests;gulp jasmine_isparta_tests",
-    "lint": "eslint index.js gulpfile.js test/*"
+    "lint": "eslint index.js gulpfile.js test/*.js?"
   },
   "main": "index.js",
   "dependencies": {
