@@ -174,16 +174,27 @@ var stackDumper = function (stack) {
             return M;
         }
 
-        XY = sourcemap.smc.smc.originalPositionFor({
+        L = L * 1;
+        C = C * 1;
+
+        XY = sourcemap.smc.originalPositionFor({
             line: L,
             column: C
         });
 
         if (!XY.line) {
-            return M + '\nTRANSPILED: ' + sourcemap.newLines[L - 1];
+            XY = sourcemap.smc.originalPositionFor({
+                line: L,
+                column: C,
+                bias: SM.SourceMapConsumer.LEAST_UPPER_BOUND
+            });
         }
 
-        return '(' + F + ':' + l + ':-1)' + '\nORIGINALSRC: ' + sourcemap.oldLines[XY.line - 1] + '\nTRANSPILED : ' + sourcemap.newLines[L - 1] + '\t// line ' + L + ',' + C + '\n' + (new Array(C * 1 + 13)).join('-') + '^';
+        if (!XY.line) {
+            return M + '\nTRANSPILED: ' + sourcemap.newLines[L - 1] + '\n' + (new Array(C * 1 + 13)).join('-') + '^';
+        }
+
+        return '(' + F + ':' + XY.line + ':' + XY.column + ')' + '\nORIGINALSRC: ' + sourcemap.oldLines[XY.line - 1] + '\n' + (new Array(XY.column + 13)).join('-') + '^\nTRANSPILED : ' + sourcemap.newLines[L - 1] + '\t// line ' + L + ',' + C + '\n' + (new Array(C + 13)).join('-') + '^';
     });
 };
 
