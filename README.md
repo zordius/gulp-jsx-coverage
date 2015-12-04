@@ -94,11 +94,12 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         reporter: 'spec'
     },
 
-    // Recommend moving to .babelrc
+    // Recommend moving this to .babelrc
     babel: {                                         // will pass to babel-core
         presets: ['es2015', 'react'],                // Use proper presets or plugins for your scripts
         sourceMap: 'both'                            // get hints in covarage reports or error stack
     },
+
     coffee: {                                        // will pass to coffee.compile
         sourceMap: true                              // true to get hints in HTML coverage reports
     },

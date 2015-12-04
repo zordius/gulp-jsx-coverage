@@ -1,6 +1,11 @@
 HISTORY
 =======
 
+2015-12-04 0.3.5 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.5
+   * change example to recommend people move babel config into .babelrc
+   * use source-map for better line/column hint in coverage report
+   * better line/column display for mocha error stack traces
+
 2015-12-03 0.3.4 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.4
    * fix v0.3.3 isparta coverage report issue
 
