@@ -93,6 +93,8 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     mocha: {                                         // will pass to mocha
         reporter: 'spec'
     },
+
+    // Recommend moving to .babelrc
     babel: {                                         // will pass to babel-core
         presets: ['es2015', 'react'],                // Use proper presets or plugins for your scripts
         sourceMap: 'both'                            // get hints in covarage reports or error stack
@@ -146,7 +148,7 @@ Live Example: mocha
 git clone https://github.com/zordius/gulp-jsx-coverage.git
 cd gulp-jsx-coverage
 npm install
-npm run mocha_test
+npm run mocha
 ```
 
 **Output**:
@@ -186,6 +188,7 @@ All files       |        80 |       100 |     66.67 |        80 |
 ```
 
 * Check <a href="gulpfile.js">gulpfile.js</a> for the sample input.
+* Check <a href=".babelrc">.babelrc</a> for the sample babel config.
 * Check <a href="http://zordius.github.io/gulp-jsx-coverage/lcov-report/">coverage report</a> directory for the sample output.
 
 Upgrade Notice

@@ -23,10 +23,6 @@ require('gulp').task('mocha_tests', require('./index').createTask({
     mocha: {
         reporter: 'spec'
     },
-    babel: {
-        presets: ['es2015', 'react'],
-        sourceMap: 'both'
-    },
     coffee: {
         sourceMap: true
     }
@@ -53,10 +49,6 @@ var GJCoptions = {
     coverage: {
         reporters: ['text', 'json', 'lcov'],
         directory: 'coverage'
-    },
-    babel: {
-        presets: ['es2015', 'react'],
-        sourceMap: 'both'
     },
     coffee: {
         sourceMap: true
