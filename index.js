@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var fs = require('fs');
 var babel = require('babel-core');
-var sourceMap = require('source-map');
+var SM = require('source-map');
 var sourceStore = undefined;
 var finalSummary = undefined;
 var sourceMapCache = {};
@@ -42,7 +42,7 @@ var addSourceComments = function (source, sourceMap, filename) {
     if (sourceMap && sourceMap.sourcesContent && sourceMap.sourcesContent[0]) {
         sourceMap.newLines = lines.slice(0);
         oldlines = sourceMap.sourcesContent[0].split(/\n/);
-        smc = new sourceMap.SourceMapConsumer(sourceMap);
+        smc = new SM.SourceMapConsumer(sourceMap);
 
         lines.forEach(function (L, I) {
             var XY = smc.originalPositionFor({
@@ -50,17 +50,24 @@ var addSourceComments = function (source, sourceMap, filename) {
                 column: 1
             });
 
-//            if (!V || !I || outputs[V]) {
-//                loc -= 8;
-//                return;
-//            }
+            if (!XY.line && L) {
+                XY = smc.originalPositionFor({
+                    line: I + 1,
+                    column: L.length - 1
+                });
+            }
+
+            if (!XY.line || !L) {
+                loc -= 8;
+                return;
+            }
 
             // Do not comment when transform nothing
             if (oldlines[XY.line - 1] === L) {
                 return;
             }
 
-            line = betterIndent(V, loc);
+            line = betterIndent(L, loc);
             loc = line.length;
 
             // Add comment to hint original code
