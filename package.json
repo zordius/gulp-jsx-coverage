@@ -39,7 +39,7 @@
   },
   "main": "index.js",
   "dependencies": {
-    "parse-base64vlq-mappings": "0.1.4",
+    "source-map": "^0.5.2",
     "object.assign": "4.0.3",
     "babel-core": "^6.2.1",
     "gulp": "^3.9.0",

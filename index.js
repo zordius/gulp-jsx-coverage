@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var fs = require('fs');
 var babel = require('babel-core');
-var parseVLQ = require('parse-base64vlq-mappings');
+var sourceMap = require('source-map');
 var sourceStore = undefined;
 var finalSummary = undefined;
 var sourceMapCache = {};
@@ -34,37 +34,39 @@ var addSourceComments = function (source, sourceMap, filename) {
     var oldlines,
         lines = source.split(/\n/),
         mappings = [],
-        loc,
+        loc = 0,
         line,
+        smc,
         outputs = [];
 
     if (sourceMap && sourceMap.sourcesContent && sourceMap.sourcesContent[0]) {
         sourceMap.newLines = lines.slice(0);
         oldlines = sourceMap.sourcesContent[0].split(/\n/);
-        parseVLQ(sourceMap.mappings).forEach(function (P) {
-            mappings[P.generated.line] = P.original.line;
-        });
-        mappings.forEach(function (V, I) {
-            if (!V || !I || outputs[V]) {
-                loc -= 8;
-                return;
-            }
+        smc = new sourceMap.SourceMapConsumer(sourceMap);
 
-            // Mapping once
-            outputs[V] = 1;
+        lines.forEach(function (L, I) {
+            var XY = smc.originalPositionFor({
+                line: I + 1,
+                column: 1
+            });
+
+//            if (!V || !I || outputs[V]) {
+//                loc -= 8;
+//                return;
+//            }
 
             // Do not comment when transform nothing
-            if (oldlines[V-1] === lines[I-1]) {
+            if (oldlines[XY.line - 1] === L) {
                 return;
             }
 
-            line = betterIndent(lines[I-1], loc);
+            line = betterIndent(V, loc);
             loc = line.length;
 
             // Add comment to hint original code
-            lines[I-1] = line + '// ' + ((V!==I) ? ('Line ' + V + ': ') : '') + oldlines[V-1];
+            lines[I] = line + '// ' + ((XY.line !== I + 1) ? ('Line ' + XY.line + ': ') : '') + oldlines[XY.line - 1];
         });
-        sourceMap.linemappings = mappings;
+        sourceMap.smc = smc;
         sourceMap.oldLines = oldlines;
         sourceMapCache[filename] = sourceMap;
         source = lines.join('\n').replace(/\/\/# sourceMappingURL=.+/, '// SourceMap was distributed to comments by gulp-jsx-coverage');
@@ -159,19 +161,22 @@ var initModuleLoaderHack = function (options) {
 var stackDumper = function (stack) {
     return stack.replace(/\((.+?):(\d+):(\d+)\)/g, function (M, F, L, C) {
         var sourcemap = sourceMapCache[F];
-        var l = 0;
+        var XY;
 
         if (!sourcemap) {
             return M;
         }
 
-        l = sourcemap.linemappings[L];
+        XY = sourcemap.smc.smc.originalPositionFor({
+            line: L,
+            column: C
+        });
 
-        if (l === undefined) {
+        if (!XY.line) {
             return M + '\nTRANSPILED: ' + sourcemap.newLines[L - 1];
         }
 
-        return '(' + F + ':' + l + ':-1)' + '\nORIGINALSRC: ' + sourcemap.oldLines[l - 1] + '\nTRANSPILED : ' + sourcemap.newLines[L - 1] + '\t// line ' + L + ',' + C + '\n' + (new Array(C * 1 + 13)).join('-') + '^';
+        return '(' + F + ':' + l + ':-1)' + '\nORIGINALSRC: ' + sourcemap.oldLines[XY.line - 1] + '\nTRANSPILED : ' + sourcemap.newLines[L - 1] + '\t// line ' + L + ',' + C + '\n' + (new Array(C * 1 + 13)).join('-') + '^';
     });
 };
 
