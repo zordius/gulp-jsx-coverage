@@ -1,7 +1,7 @@
 gulp-jsx-coverage
 =================
 
-Enable istanbul or isparta coverage on ES2015/babel or coffee-script files when you do mocha/jasmine tests, also deal with sourceMap for coverage report and stack trace.
+Enable istanbul or isparta coverage on ES2015/babel or coffee-script/cjsx files when you do mocha/jasmine tests, also deal with sourceMap for coverage report and stack trace.
 
 [![npm version](https://img.shields.io/npm/v/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![npm download](https://img.shields.io/npm/dm/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![Dependency Status](https://david-dm.org/zordius/gulp-jsx-coverage.svg)](https://david-dm.org/zordius/gulp-jsx-coverage) [![Build Status](https://travis-ci.org/zordius/gulp-jsx-coverage.svg?branch=master)](https://travis-ci.org/zordius/gulp-jsx-coverage) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.txt)
 
@@ -56,6 +56,7 @@ Best Practices
 
 * The golden rule: **Use .jsx as ext name** when jsx syntax inside it. Require it by `require('file.jsx')`.
 * The golden rule: **Use .coffee as ext name** when coffee script inside it. Require it by `require('file.coffee')`.
+* The golden rule: **Use .cjsx as ext name** when coffee script + jsx syntax inside it. Require it by `require('file.cjsx')`.
 * When you develop a module, do not use any module loader hooks. (Refer to <a href="https://babeljs.io/docs/usage/require/">Babel require hook document</a>)
 * Excludes transpiler directories as possible to improve performance.
 * When you develop an application, you may use module loader hooks. But, don't enable the hook when you do testing.
