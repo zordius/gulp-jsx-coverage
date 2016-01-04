@@ -16,6 +16,7 @@ Features
 * sourceMaps on stack traces when mocha test failed
 * coverage threshold
 * **0.3.0 NEW** support isparta
+* **0.3.6 NEW** support <a href="https://github.com/jsdf/coffee-react">.cjsx</a> syntax
 
 Check this chart to see features when gulp-jsx-coverage work with different coverage tools:
 
@@ -26,6 +27,7 @@ Check this chart to see features when gulp-jsx-coverage work with different cove
 | syntax: jsx              | ✅          | ✅        |
 | syntax: ES2015           | ✅          | ✅        |
 | syntax: coffee-script    | ✅          | ❌        |
+| syntax: cjsx             | ✅          | ❌        |
 | coverage report          | transpiled | original |
 
 * **istanbul+mocha:hint original codes (jsx/es2015) in coverage reports**
