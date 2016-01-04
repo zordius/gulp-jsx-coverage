@@ -47,6 +47,7 @@ npm install gulp-jsx-coverage mocha --save-dev
 ```
 
 * You will need to install <a href="https://www.npmjs.com/package/coffee-script">coffee-script</a> when you require('foobar.coffee') or write tests as foobar.coffee
+* You will need to install <a href="https://github.com/jsdf/coffee-react-transform">coffee-react-transform</a> and <a href="https://www.npmjs.com/package/coffee-script">coffee-script</a> when you require('foobar.cjsx') or write tests as foobar.cjsx
 * You will need to install <a href="https://github.com/douglasduteil/isparta">isparta</a> when you enable isparta
 * Regular JavaScript files with .js extension may use ES2015 features
 
