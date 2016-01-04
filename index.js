@@ -97,6 +97,11 @@ var initModuleLoaderHack = function (options) {
         exclude: /^$/,
         omitExt: false
     }, options.transpile ? options.transpile.coffee : undefined);
+    var cjsxFiles = Object.assign({
+        include: /\.cjsx$/,
+        exclude: /^$/,
+        omitExt: false
+    }, options.transpile ? options.transpile.cjsx : undefined);
 
     var moduleLoader = function (module, filename) {
         var srcCache = sourceStore.map[filename],
@@ -121,7 +126,15 @@ var initModuleLoaderHack = function (options) {
             }
         }
 
-        if (filename.match(coffeeFiles.include) && !filename.match(coffeeFiles.exclude)) {
+        if (filename.match(cjsxFiles.include) && !filename.match(cjsxFiles.exclude)) {
+            try {
+                src = require('coffee-react-transform')(src);
+            } catch (e) {
+                throw new Error('Error when transform cjsx ' + filename + ': ' + e.toString());
+            }
+        }
+
+        if ((filename.match(coffeeFiles.include) && !filename.match(coffeeFiles.exclude)) || (filename.match(cjsxFiles.include) && !filename.match(cjsxFiles.exclude))) {
             try {
                 tmp = require('coffee-script').compile(src, options.coffee);
                 srcCache = tmp.v3SourceMap ? fixSourceMapContent(tmp.v3SourceMap, src) : 1;
