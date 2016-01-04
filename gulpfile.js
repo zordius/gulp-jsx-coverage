@@ -1,6 +1,6 @@
 // Mocha test example
 require('gulp').task('mocha_tests', require('./index').createTask({
-    src: ['test/test1.js', 'test/test2.jsx', 'test/test3.coffee'],
+    src: ['test/test1.js', 'test/test2.jsx', 'test/test3.coffee', 'test/test7.cjsx'],
     istanbul: {
         preserveComments: true,
         coverageVariable: '__MY_TEST_COVERAGE__',
