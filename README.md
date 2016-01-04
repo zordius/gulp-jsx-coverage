@@ -84,7 +84,11 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         coffee: {
             include: /\.coffee$/,
             omitExt: false                           // if you wanna omit file ext when require(), put an array
-        }                                            // of file exts here. Ex: ['.coffee'] (NOT RECOMMENDED)
+        },                                           // of file exts here. Ex: ['.coffee'] (NOT RECOMMENDED)
+        cjsx: {
+            include: /\.cjsx$/,
+            omitExt: false                           // if you wanna omit file ext when require(), put an array
+        }                                            // of file exts here. Ex: ['.cjsx'] (NOT RECOMMENDED)
     },
     coverage: {
         reporters: ['text-summary', 'json', 'lcov'], // list of istanbul reporters

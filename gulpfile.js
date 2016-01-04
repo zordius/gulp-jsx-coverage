@@ -14,6 +14,9 @@ require('gulp').task('mocha_tests', require('./index').createTask({
         },
         coffee: {
             include: /\.coffee$/
+        },
+        cjsx: {
+            include: /\.cjsx$/
         }
     },
     coverage: {
