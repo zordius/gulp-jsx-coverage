@@ -1,6 +1,9 @@
 HISTORY
 =======
 
+2016-01-04 0.3.6 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.6
+   * support .cjsx files
+
 2015-12-04 0.3.5 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.5
    * change example to recommend people move babel config into .babelrc
    * use source-map for better line/column hint in coverage report
