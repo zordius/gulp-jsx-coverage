@@ -1,6 +1,9 @@
 HISTORY
 =======
 
+2016-01-12 0.3.7 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.7
+   * fix .cjsx omitExt option bug
+
 2016-01-04 0.3.6 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.6
    * support .cjsx files
 
