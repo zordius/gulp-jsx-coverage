@@ -1,5 +1,5 @@
 // Mocha test example
-require('gulp').task('mocha_tests', ['mocha_emitext_tests'], require('./index').createTask({
+require('gulp').task('mocha_tests', ['mocha_emitext_tests', 'mocha_cover_all_tests'], require('./index').createTask({
     src: ['test/test1.js', 'test/test2.jsx', 'test/test3.coffee', 'test/test7.cjsx'],
     istanbul: {
         preserveComments: true,
@@ -66,6 +66,10 @@ gulp.task('mocha_emitext_tests', GJC.createTask(Object.assign({}, GJCoptions, {
             omitExt: ['.cjsx']
         }
     },
+})));
+
+gulp.task('mocha_cover_all_tests', GJC.createTask(Object.assign({}, GJCoptions, {
+    src: ['test/Component.jsx', 'test/target.js', 'test/test1.js'],
 })));
 
 gulp.task('jasmine_tests', function () {
