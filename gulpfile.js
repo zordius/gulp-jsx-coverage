@@ -1,5 +1,5 @@
 // Mocha test example
-require('gulp').task('mocha_tests', require('./index').createTask({
+require('gulp').task('mocha_tests', ['mocha_emitext_tests'], require('./index').createTask({
     src: ['test/test1.js', 'test/test2.jsx', 'test/test3.coffee', 'test/test7.cjsx'],
     istanbul: {
         preserveComments: true,
@@ -57,6 +57,16 @@ var GJCoptions = {
         sourceMap: true
     }
 };
+
+gulp.task('mocha_emitext_tests', GJC.createTask(Object.assign({}, GJCoptions, {
+    src: ['test/test8.cjsx'],
+    transpile: {
+        cjsx: {
+            include: /\.cjsx$/,
+            omitExt: ['.cjsx']
+        }
+    },
+})));
 
 gulp.task('jasmine_tests', function () {
     GJC.initModuleLoaderHack(GJCoptions);

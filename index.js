@@ -102,7 +102,6 @@ var initModuleLoaderHack = function (options) {
         exclude: /^$/,
         omitExt: false
     }, options.transpile ? options.transpile.cjsx : undefined);
-
     var moduleLoader = function (module, filename) {
         var srcCache = sourceStore.map[filename],
             src = srcCache || fs.readFileSync(filename, {encoding: 'utf8'}),
@@ -173,6 +172,11 @@ var initModuleLoaderHack = function (options) {
     }
     if (coffeeFiles.omitExt) {
         coffeeFiles.omitExt.forEach(function (V) {
+            Module._extensions[V] = moduleLoader;
+        });
+    }
+    if (cjsxFiles.omitExt) {
+        cjsxFiles.omitExt.forEach(function (V) {
             Module._extensions[V] = moduleLoader;
         });
     }
