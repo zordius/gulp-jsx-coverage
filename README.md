@@ -69,7 +69,7 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     src: ['test/**/*.js', 'test/components/*.jsx'],  // will pass to gulp.src as mocha tests
     isparta: false,                                  // use istanbul as default
     istanbul: {                                      // will pass to istanbul or isparta
-        preserveComments: true                       // required for istanbul 0.4.0+
+        preserveComments: true,                      // required for istanbul 0.4.0+
         coverageVariable: '__MY_TEST_COVERAGE__',
         exclude: /node_modules|test[0-9]/            // do not instrument these files
     },
