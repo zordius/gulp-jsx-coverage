@@ -31,8 +31,8 @@
     "CoffeeScript"
   ],
   "scripts": {
-    "test": "gulp jasmine_tests;gulp mocha_isparta_tests;gulp mocha_tests;gulp jasmine_isparta_tests",
-    "mocha": "gulp mocha_tests",
+    "test": "npm run jasmine && npm run isparta && npm run mocha",
+    "mocha": "gulp mocha_tests;gulp mocha_emitext_tests;gulp mocha_cover_all_tests",
     "jasmine": "gulp jasmine_tests",
     "isparta": "gulp mocha_isparta_tests;gulp jasmine_isparta_tests",
     "lint": "eslint index.js gulpfile.js test/*.js?"
