@@ -246,15 +246,10 @@ var GJC = {
                 options.cleanup(this);
             }
 
-            if (options.threshold) {
-                if ('function' === (typeof options.threshold.forEach)) {
-                    options.threshold.forEach(function (O) {
-                        GJC.failWithThreshold(O.min, O.type).apply(this);
-                    }.bind(this));
-                } else {
-                    // Old interface, will be removed in future.
-                    GJC.failWithThreshold(options.threshold, options.thresholdType).apply(this);
-                }
+            if (options.threshold && ('function' === (typeof options.threshold.forEach))) {
+                options.threshold.forEach(function (O) {
+                    GJC.failWithThreshold(O.min, O.type).apply(this);
+                }.bind(this));
             }
 
             GJC.disableStackTrace();
