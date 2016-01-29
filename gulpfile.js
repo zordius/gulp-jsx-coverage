@@ -94,3 +94,17 @@ gulp.task('jasmine_isparta_tests', function () {
     .pipe(jasmine())
     .on('end', GJC.collectIstanbulCoverage(GJCIspartaOptions));
 });
+
+gulp.task('mocha_threshold_tests', GJC.createTask(Object.assign({}, GJCoptions, {
+    src: ['test/test1.js'],
+    threshold: [
+        {
+            type: 'lines',
+            min: 70
+        },
+        {
+            type: 'functions',
+            min: 90
+        }
+    ]
+})));

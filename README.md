@@ -74,10 +74,12 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         exclude: /node_modules|test[0-9]/            // do not instrument these files
     },
 
-    threshold: 80,                                   // fail the task when coverage lower than this
-                                                     // default is no threshold
-    thresholdType: 'functions',                      // one of 'lines', 'statements', 'functions', 'banches'
-                                                     // default is 'lines'
+    threshold: [                                     // fail the task when coverage lower than one of this array
+        {
+            type: 'lines',                           // one of 'lines', 'statements', 'functions', 'banches'
+            min: 90
+        }
+    ],
 
     transpile: {                                     // this is default whitelist/blacklist for transpilers
         babel: {

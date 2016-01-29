@@ -247,7 +247,14 @@ var GJC = {
             }
 
             if (options.threshold) {
-                GJC.failWithThreshold(options.threshold, options.thresholdType).apply(this);
+                if ('function' === (typeof options.threshold.forEach)) {
+                    options.threshold.forEach(function (O) {
+                        GJC.failWithThreshold(O.min, O.type).apply(this);
+                    }.bind(this));
+                } else {
+                    // Old interface, will be removed in future.
+                    GJC.failWithThreshold(options.threshold, options.thresholdType).apply(this);
+                }
             }
 
             GJC.disableStackTrace();
