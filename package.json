@@ -1,6 +1,6 @@
 {
   "name": "gulp-jsx-coverage",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Enable istanbul or isparta coverage on ES2015/babel or coffee-script/cjsx files when you do mocha/jasmine tests, also deal with sourceMap for coverage report and stack trace.",
   "author": "Zordius <zordius@yahoo-inc.com>",
   "contributors": [

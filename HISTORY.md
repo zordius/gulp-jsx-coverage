@@ -1,6 +1,9 @@
 HISTORY
 =======
 
+2016-02-01 0.3.8 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.8
+   * support multiple coverage threshold types
+
 2016-01-12 0.3.7 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.7
    * fix .cjsx omitExt option bug
 
