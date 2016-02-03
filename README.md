@@ -130,7 +130,7 @@ var GJC = require('gulp-jsx-coverage');
 var jasmine = require('gulp-jasmine');
 
 gulp.task('my_jasmine_tests', function () {
-    GJC.initIstanbulHook(GJCoptions); // Refer to previous gulp-jsx-coverage options
+    GJC.initModuleLoaderHack(GJCoptions); // Refer to previous gulp-jsx-coverage options
 
     return gulp.src('test/*.js')
     .pipe(jasmine(jasmineOptions))
