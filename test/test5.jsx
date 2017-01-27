@@ -17,7 +17,7 @@ var Testlib = {
     renderComponent: function (react, props, context) {
         var rendered;
         global.document = jsdom('<!DOCTYPE html><html><body></body></html>');
-        global.window = global.document.parentWindow;
+        global.window = global.document.defaultView;
         global.navigator = global.window.navigator;
         rendered = TestUtils.renderIntoDocument(React.createElement(react, props));
         return TestUtils.findRenderedComponentWithType(rendered, react);

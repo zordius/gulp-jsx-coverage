@@ -31,7 +31,7 @@
     "CoffeeScript"
   ],
   "scripts": {
-    "test": "npm run jasmine && npm run isparta && npm run mocha",
+    "test": "npm run jasmine && npm run mocha",
     "mocha": "gulp mocha_tests;gulp mocha_emitext_tests;gulp mocha_cover_all_tests",
     "jasmine": "gulp jasmine_tests",
     "isparta": "gulp mocha_isparta_tests;gulp jasmine_isparta_tests",
@@ -40,32 +40,31 @@
   },
   "main": "index.js",
   "dependencies": {
-    "source-map": "^0.5.2",
-    "object.assign": "4.0.3",
-    "babel-core": "^6.2.1",
-    "gulp": "^3.9.0",
-    "gulp-util": "^3.0.7",
+    "source-map": "^0.5.6",
+    "object.assign": "4.0.4",
+    "babel-core": "^6.22.1",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.8",
     "istanbul": "^0.4.1",
-    "gulp-mocha": "^2.1.3"
+    "gulp-mocha": "^3.0.1"
   },
   "devDependencies": {
-    "babel-eslint": "4.1.7",
-    "babel-preset-es2015": "6.1.2",
-    "babel-preset-react": "6.1.2",
-    "coffee-react-transform": "3.3.0",
-    "coffee-script": "1.10.0",
-    "eslint": "1.10.3",
-    "eslint-plugin-react": "3.11.2",
-    "gulp-jasmine": "2.2.1",
-    "isparta": "4.0.0",
-    "jsdom": "3.1.2",
-    "mocha": "2.3.3",
-    "react": "0.14.2",
-    "react-addons-test-utils": "0.14.2",
-    "react-dom": "0.14.2"
+    "babel-eslint": "7.1.1",
+    "babel-preset-es2015": "6.22.0",
+    "babel-preset-react": "6.22.0",
+    "coffee-react-transform": "5.0.0",
+    "coffee-script": "1.12.3",
+    "eslint": "3.14.1",
+    "eslint-plugin-react": "6.9.0",
+    "gulp-jasmine": "2.4.2",
+    "jsdom": "9.9.1",
+    "mocha": "3.2.0",
+    "react": "15.4.2",
+    "react-addons-test-utils": "15.4.2",
+    "react-dom": "15.4.2"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.6.0"
   },
   "bugs": {
     "url": "https://github.com/zordius/gulp-jsx-coverage/issues"
