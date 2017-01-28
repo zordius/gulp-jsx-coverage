@@ -85,8 +85,8 @@ var addSourceComments = function (source, sourceMap, filename) {
 // Never use node-jsx or other transform in your testing code!
 var initModuleLoaderHack = function (options) {
     var Module = require('module');
-    var istanbul = require(options.isparta ? 'isparta' : 'istanbul');
-    var instrumenter = new istanbul.Instrumenter(Object.assign(options.isparta ? {babelOptions: options.babel} : {}, options.istanbul));
+    var istanbul = require('istanbul');
+    var instrumenter = new istanbul.Instrumenter(options.istanbul);
     var babelFiles = Object.assign({
         include: /\.jsx?$/,
         exclude: /node_modules/,
@@ -116,7 +116,7 @@ var initModuleLoaderHack = function (options) {
                 try {
                     tmp = babel.transform(src, Object.assign({
                         filename: filename
-                    }, options.babel));
+                    }));
                     srcCache = tmp.map || 1;
                     src = tmp.code;
                 } catch (e) {
@@ -226,7 +226,7 @@ var GJC = {
     },
     collectIstanbulCoverage: function (options) {
         return function () {
-            var istanbul = require(options.isparta ? 'isparta' : 'istanbul'),
+            var istanbul = require('istanbul'),
                 collector = new istanbul.Collector();
 
             collector.add(global[options.istanbul.coverageVariable]);
@@ -237,7 +237,7 @@ var GJC = {
 
             options.coverage.reporters.forEach(function (R) {
                 istanbul.Report.create(R, {
-                    sourceStore: options.isparta ? undefined : sourceStore,
+                    sourceStore: sourceStore,
                     dir: options.coverage.directory
                 }).writeReport(collector, true);
             });
