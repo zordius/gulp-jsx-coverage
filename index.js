@@ -42,7 +42,8 @@ var initModuleLoader = function (options) {
             try {
                 tmp = babel.transform(src, Object.assign({
                     filename: filename,
-                    babelrc: bbl
+                    babelrc: bbl,
+                    sourceMap: 'both'
                 }, cov ? {plugins: [['istanbul', {include: '*', exclude: '/_NOT_ME_'}]]} : {}));
                 srcCache = tmp.map || 1;
                 src = tmp.code;
@@ -93,11 +94,33 @@ var GJC = {
     },
     collectIstanbulCoverage: function (options) {
         return function () {
-            var map = coverage.createCoverageMap(global[coverageVariable]);
-            var context = report.createContext({
-                dir: options.coverage.directory
+            var map;
+            var context;
+            var tree;
+            var covCfg = Object.assign({
+                directory: 'coverage',
+                reporters: ['text']
+            }, options.coverage);
+
+            if (!global[coverageVariable]) {
+                this.emit('error', new (require('gulp-util').PluginError)({
+                    plugin: pluginName,
+                    message: 'No coverage info! Check your options.src or options.istanbul.exclude to ensure you include proper files'
+                }));
+            }
+
+            if (!covCfg.reporters || !covCfg.reporters.forEach) {
+                this.emit('error', new (require('gulp-util').PluginError)({
+                    plugin: pluginName,
+                    message: 'Bad config! Check your options.coverage.reports, it should be an array.'
+                }));
+            }
+
+            context = report.createContext({
+                dir: covCfg.directory
             });
-            var tree = report.summarizers.pkg(map);
+            map = coverage.createCoverageMap(global[coverageVariable]);
+            tree = report.summarizers.pkg(map);
 
             finalSummary = coverage.createCoverageSummary();
 
@@ -105,7 +128,7 @@ var GJC = {
                 finalSummary.merge(map.fileCoverageFor(F).toSummary());
             });
 
-            options.coverage.reporters.forEach(function (R) {
+            covCfg.reporters.forEach(function (R) {
                 try {
                     tree.visit(reporters.create(R), context);
                 } catch (E) {

@@ -23,11 +23,26 @@ Features
 **original codes/line in stack traces**
 <img src="demo2.jpg" />
 
-Install
--------
+Usage
+-----
 
+1. Install
+==========
 ```
-npm install gulp-jsx-coverage --save-dev
+npm install gulp gulp-jsx-coverage babel-plugin-istanbul --save-dev
+```
+
+2. Configure Babel
+==================
+Configure your <a href="https://babeljs.io/docs/usage/babelrc/">.babelrc</a> and install proper <a href="https://babeljs.io/docs/plugins/">presets or plugins</a>.
+
+Here is a .babelrc example:
+```
+{presets: ['es2015']}
+```
+And then:
+```
+npm install babel-preset-es2015
 ```
 
 Best Practices
