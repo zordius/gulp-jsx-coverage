@@ -1,6 +1,14 @@
 HISTORY
 =======
 
+2017-01-29 0.4.0 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.4.0
+   * **BREAK CHANGE** do not support coffee-script
+   * **BREAK CHANGE** do not support cjsx
+   * **BREAK CHANGE** do not support isparta nor options.isparta
+   * **BREAK CHANGE** do not support options.istanbul.coverageVariable
+   * **BREAK CHANGE** rename options.transpile.babel to options.babel
+   * **BREAK CHANGE** rename .initModuleLoaderHack() to initModuleLoader()
+
 2016-02-01 0.3.8 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.8
    * support multiple coverage threshold types
 
