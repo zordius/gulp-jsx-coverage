@@ -44,7 +44,9 @@ Configure your <a href="https://babeljs.io/docs/usage/babelrc/">.babelrc</a> and
 
 Here is a .babelrc example:
 ```
-{presets: ['es2015', 'react']}
+{
+  presets: ['es2015', 'react']
+}
 ```
 And then:
 ```
