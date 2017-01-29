@@ -4,9 +4,14 @@ var gulp = require('gulp');
 var fs = require('fs');
 var babel = require('babel-core');
 var SM = require('source-map');
-var sourceStore = undefined;
+var coverage = require('istanbul-lib-coverage');
+var report = require('istanbul-lib-report');
+var reporters = require('istanbul-reports');
+
+var sourceCache = undefined;
 var finalSummary = undefined;
 var sourceMapCache = {};
+var coverageVariable = '__coverage__';
 
 var getDataURI = function (sourceMap) {
     return 'data:application/json;base64,' + new Buffer(unescape(encodeURIComponent(sourceMap)), 'binary').toString('base64');
@@ -85,8 +90,6 @@ var addSourceComments = function (source, sourceMap, filename) {
 // Never use node-jsx or other transform in your testing code!
 var initModuleLoaderHack = function (options) {
     var Module = require('module');
-    var istanbul = require('istanbul');
-    var instrumenter = new istanbul.Instrumenter(options.istanbul);
     var babelFiles = Object.assign({
         include: /\.jsx?$/,
         exclude: /node_modules/,
@@ -103,7 +106,7 @@ var initModuleLoaderHack = function (options) {
         omitExt: false
     }, options.transpile ? options.transpile.cjsx : undefined);
     var moduleLoader = function (module, filename) {
-        var srcCache = sourceStore.map[filename],
+        var srcCache = sourceCache[filename],
             src = srcCache || fs.readFileSync(filename, {encoding: 'utf8'}),
             tmp;
 
@@ -112,16 +115,14 @@ var initModuleLoaderHack = function (options) {
         }
 
         if (filename.match(babelFiles.include) && !filename.match(babelFiles.exclude)) {
-            if (!options.sparta || !filename.match(options.istanbul.exclude)) {
-                try {
-                    tmp = babel.transform(src, Object.assign({
-                        filename: filename
-                    }));
-                    srcCache = tmp.map || 1;
-                    src = tmp.code;
-                } catch (e) {
-                    throw new Error('Error when transform es2015/jsx ' + filename + ': ' + e.toString());
-                }
+            try {
+                tmp = babel.transform(src, Object.assign({
+                    filename: filename
+                }, filename.match(options.istanbul.exclude) ? {} : {plugins: [['istanbul', {include: '*', exclude: '/_NOT_ME_'}]]}));
+                srcCache = tmp.map || 1;
+                src = tmp.code;
+            } catch (e) {
+                throw new Error('Error when transform es2015/jsx ' + filename + ': ' + e.toString());
             }
         }
 
@@ -144,24 +145,14 @@ var initModuleLoaderHack = function (options) {
         }
 
         if (srcCache) {
-            sourceStore.set(filename, addSourceComments(src, srcCache, filename));
-        }
-
-        // Don't instrument files that aren't meant to be
-        if (!filename.match(options.istanbul.exclude)) {
-            try {
-                src = instrumenter.instrumentSync(src, filename);
-            } catch (e) {
-                throw new Error('Error when instrument ' + filename + ': ' + e.toString());
-            }
+            sourceCache[filename] = src;
         }
 
         module._compile(src, filename);
     };
 
-    global[options.istanbul.coverageVariable] = {};
-    sourceStore = istanbul.Store.create('memory');
-    sourceStore.dispose();
+    global[coverageVariable] = {};
+    sourceCache = {};
     sourceMapCache = {};
 
     Module._extensions['.js'] = moduleLoader;
@@ -226,20 +217,27 @@ var GJC = {
     },
     collectIstanbulCoverage: function (options) {
         return function () {
-            var istanbul = require('istanbul'),
-                collector = new istanbul.Collector();
+            var map = coverage.createCoverageMap(global[coverageVariable]);
+            var context = report.createContext({
+                dir: options.coverage.directory
+            });
+            var tree = report.summarizers.pkg(map);
 
-            collector.add(global[options.istanbul.coverageVariable]);
+            finalSummary = coverage.createCoverageSummary();
 
-            finalSummary = istanbul.utils.mergeSummaryObjects.apply(null, collector.files().map(function (F) {
-                return istanbul.utils.summarizeFileCoverage(collector.fileCoverageFor(F));
-            }));
+            map.files().forEach(function (F) {
+                finalSummary.merge(map.fileCoverageFor(F).toSummary());
+            });
 
             options.coverage.reporters.forEach(function (R) {
-                istanbul.Report.create(R, {
-                    sourceStore: sourceStore,
-                    dir: options.coverage.directory
-                }).writeReport(collector, true);
+                try {
+                    tree.visit(reporters.create(R), context);
+                } catch (E) {
+                    this.emit('error', new (require('gulp-util').PluginError)({
+                        plugin: 'gulp-jsx-coverage',
+                        message: 'ERROR when generate instanbul report ' + R + ':' + E.message
+                    }));
+                }
             });
 
             if ('function' === (typeof options.cleanup)) {
@@ -284,7 +282,6 @@ var GJC = {
         return function () {
             GJC.initModuleLoaderHack(options);
             GJC.enableStackTrace();
-
             return gulp.src(options.src)
             .pipe(require('gulp-mocha')(options.mocha))
             .on('end', GJC.collectIstanbulCoverage(options));
