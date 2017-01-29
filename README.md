@@ -44,11 +44,11 @@ Configure your <a href="https://babeljs.io/docs/usage/babelrc/">.babelrc</a> and
 
 Here is a .babelrc example:
 ```
-{presets: ['es2015']}
+{presets: ['es2015', 'react']}
 ```
 And then:
 ```
-npm install babel-preset-es2015
+npm install babel-preset-es2015 babel-preset-react
 ```
 
 3. Create Gulp Task
