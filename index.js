@@ -12,6 +12,7 @@ var sourceCache = undefined;
 var finalSummary = undefined;
 var sourceMapCache = {};
 var coverageVariable = '__coverage__';
+var pluginName = 'gulp-jsx-coverage';
 
 // Never use node-jsx or other transform in your testing code!
 var initModuleLoader = function (options) {
@@ -20,7 +21,7 @@ var initModuleLoader = function (options) {
         include: /\.jsx?$/,
         exclude: /node_modules/,
         omitExt: false
-    }, options.transpile ? options.transpile.babel : undefined);
+    }, options.babel);
     var moduleLoader = function (module, filename) {
         var srcCache = sourceCache[filename],
             src = srcCache || fs.readFileSync(filename, {encoding: 'utf8'}),
@@ -36,7 +37,7 @@ var initModuleLoader = function (options) {
                     filename: filename
                 }, filename.match(options.istanbul.exclude) ? {} : {plugins: [['istanbul', {include: '*', exclude: '/_NOT_ME_'}]]}));
                 srcCache = tmp.map || 1;
-                src = "try {require('source-map-support').install();}\ncatch (E) {" + (options.ignoreSourceMapSupport ? '' : "console.warn('Can not install source-map-support, add option.ignoreSourceMapSupport to stop this message.');") + "}\n" + tmp.code;
+                src = tmp.code;
             } catch (e) {
                 throw new Error('Error when transform es2015/jsx ' + filename + ': ' + e.toString());
             }
@@ -59,6 +60,22 @@ var initModuleLoader = function (options) {
         babelFiles.omitExt.forEach(function (V) {
             Module._extensions[V] = moduleLoader;
         });
+    }
+
+    try {
+        require('source-map-support').install({
+            handleUncaughtExceptions: false,
+            environment : 'node',
+            retrieveSourceMap: function (source) {
+                var map = sourceMapCache[source];
+                return map ? {
+                    url: null,
+                    map: map
+                } : null;
+            }
+        });
+    } catch (E) {
+        console.warn('Can not install "source-map-support" .'); 
     }
 };
 
@@ -85,7 +102,7 @@ var GJC = {
                     tree.visit(reporters.create(R), context);
                 } catch (E) {
                     this.emit('error', new (require('gulp-util').PluginError)({
-                        plugin: 'gulp-jsx-coverage',
+                        plugin: pluginName,
                         message: 'ERROR when generate instanbul report ' + R + ':' + E.message
                     }));
                 }
@@ -110,7 +127,7 @@ var GJC = {
             }
             if (finalSummary[T].pct < threshold) {
                 this.emit('error', new (require('gulp-util').PluginError)({
-                    plugin: 'gulp-jsx-coverage',
+                    plugin: pluginName,
                     message: T + ' coverage ' + finalSummary[T].pct + '% is lower than threshold ' + threshold + '%!'
                 }));
             }

@@ -56,13 +56,12 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         }
     ],
 
-    transpile: {                                     // this is default whitelist/blacklist for transpilers
-        babel: {
-            include: /\.jsx?$/,
-            exclude: /node_modules/,
-            omitExt: false                           // if you wanna omit file ext when require(), put an array
-        }                                            // of file exts here. Ex: ['.jsx', '.es6'] (NOT RECOMMENDED)
-    },
+    babel: {                                         // this is default setting
+        include: /\.jsx?$/,
+        exclude: /node_modules/,
+        omitExt: false                               // if you wanna omit file ext when require(), put an array
+    },                                               // of file exts here. Ex: ['.jsx', '.es6'] (NOT RECOMMENDED)
+
     coverage: {
         reporters: ['text-summary', 'json', 'lcov'], // list of istanbul reporters
         directory: 'coverage'                        // will pass to istanbul reporters
