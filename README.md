@@ -15,10 +15,12 @@ Features
 * sourceMaps on stack traces when mocha test failed (powered by <a href="https://github.com/evanw/node-source-map-support">source-map-support</a>)
 * coverage threshold
 
-**original codes (jsx/es2015) in coverage reports**
+---
+
+**original codes/line in coverage reports**
 <img src="demo1.png" />
 
-**mocha:show original code/line when test failed**
+**original codes/line in stack traces**
 <img src="demo2.jpg" />
 
 Install
