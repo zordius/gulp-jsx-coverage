@@ -33,9 +33,9 @@ For Mocha tests:
 npm install gulp gulp-jsx-coverage gulp-mocha babel-plugin-istanbul --save-dev
 ```
 
-For Jasmin tests:
+For Jasmine tests:
 ```
-npm install gulp gulp-jsx-coverage gulp-jasmin babel-plugin-istanbul --save-dev
+npm install gulp gulp-jsx-coverage gulp-jasmine babel-plugin-istanbul --save-dev
 ```
 
 2. Configure Babel
