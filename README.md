@@ -28,8 +28,14 @@ Usage
 
 1. Install
 ==========
+For Mocha tests:
 ```
-npm install gulp gulp-jsx-coverage babel-plugin-istanbul --save-dev
+npm install gulp gulp-jsx-coverage gulp-mocha babel-plugin-istanbul --save-dev
+```
+
+For Jasmin tests:
+```
+npm install gulp gulp-jsx-coverage gulp-jasmin babel-plugin-istanbul --save-dev
 ```
 
 2. Configure Babel
@@ -44,6 +50,17 @@ And then:
 ```
 npm install babel-preset-es2015
 ```
+
+3. Create Gulp Task
+===================
+Put this into your gulpfile.js:
+```javascript
+gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
+    src: ['test/**/*.js', 'test/components/*.jsx'],  // your test files
+}));
+```
+
+Then run the task: `gulp your_task_name`
 
 Best Practices
 --------------
@@ -96,7 +113,6 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
 
 Usage: Other Testing Frameworks
 -------------------------------
-
 ```javascript
 var GJC = require('gulp-jsx-coverage');
 var jasmine = require('gulp-jasmine');
