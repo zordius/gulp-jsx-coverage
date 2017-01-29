@@ -6,7 +6,7 @@ Enable istanbul coverage on ES2015/babel files when you do mocha/jasmine tests, 
 [![npm version](https://img.shields.io/npm/v/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![npm download](https://img.shields.io/npm/dm/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![Dependency Status](https://david-dm.org/zordius/gulp-jsx-coverage.svg)](https://david-dm.org/zordius/gulp-jsx-coverage) [![Build Status](https://travis-ci.org/zordius/gulp-jsx-coverage.svg?branch=master)](https://travis-ci.org/zordius/gulp-jsx-coverage) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.txt)
 
 Features
---------
+========
 
 * Help you create a gulp task to handle mocha testing + istanbul coverage
 * Transpile .jsx and ES2015 .js files on the fly
@@ -24,10 +24,10 @@ Features
 <img src="demo2.jpg" />
 
 Usage
------
+=====
 
 1. Install
-==========
+----------
 For Mocha tests:
 ```
 npm install gulp gulp-jsx-coverage gulp-mocha babel-plugin-istanbul --save-dev
@@ -39,7 +39,7 @@ npm install gulp gulp-jsx-coverage gulp-jasmin babel-plugin-istanbul --save-dev
 ```
 
 2. Configure Babel
-==================
+------------------
 Configure your <a href="https://babeljs.io/docs/usage/babelrc/">.babelrc</a> and install proper <a href="https://babeljs.io/docs/plugins/">presets or plugins</a>.
 
 Here is a .babelrc example:
@@ -52,7 +52,7 @@ npm install babel-preset-es2015
 ```
 
 3. Create Gulp Task
-===================
+-------------------
 Put this into your gulpfile.js:
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
@@ -63,15 +63,15 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
 Then run the task: `gulp your_task_name`
 
 Best Practices
---------------
+==============
 
 * The golden rule: **Use .jsx as ext name** when jsx syntax inside it. Require it by `require('file.jsx')`.
 * When you develop a module, do not use any module loader hooks. (Refer to <a href="https://babeljs.io/docs/usage/require/">Babel require hook document</a>)
-* Excludes transpiler directories as possible as you can to improve performance.
+* Excludes babel as possible as you can to improve babel performance.
 * When you develop an application, you may use module loader hooks. But, don't enable the hook when you do testing.
 
 Usage: General Mocha Test Creator
----------------------------------
+=================================
 
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
@@ -112,7 +112,7 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
 ```
 
 Usage: Other Testing Frameworks
--------------------------------
+===============================
 ```javascript
 var GJC = require('gulp-jsx-coverage');
 var jasmine = require('gulp-jasmine');
@@ -127,7 +127,7 @@ gulp.task('my_jasmine_tests', function () {
 ```
 
 Live Example: mocha
--------------------
+===================
 
 ```sh
 git clone https://github.com/zordius/gulp-jsx-coverage.git
@@ -136,8 +136,7 @@ npm install
 npm run mocha
 ```
 
-**Output**:
-
+**OUTPUT**:
 ```
  ~/gulp-jsx-coverage master>npm run mocha
 
@@ -193,7 +192,7 @@ All files      |    90.48 |      100 |       75 |    90.48 |                |
 * Check <a href="http://zordius.github.io/gulp-jsx-coverage/lcov-report/">coverage report</a> directory for the sample output.
 
 Upgrade Notice
---------------
+==============
 
 **0.4.0**
 * Core changed:
