@@ -17,10 +17,10 @@ Features
 
 ---
 
-**original codes/line in coverage reports**
+**ORIGINAL CODE/LINE in coverage reports**
 <img src="demo1.png" />
 
-**original codes/line in stack traces**
+**ORIGINAL CODE/LINE in stack traces**
 <img src="demo2.jpg" />
 
 Usage
