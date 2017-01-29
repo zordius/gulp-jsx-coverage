@@ -1,7 +1,7 @@
 gulp-jsx-coverage
 =================
 
-Enable istanbul or isparta coverage on ES2015/babel or coffee-script/cjsx files when you do mocha/jasmine tests, also deal with sourceMap for coverage report and stack trace.
+Enable istanbul coverage on ES2015/babel files when you do mocha/jasmine tests.
 
 [![npm version](https://img.shields.io/npm/v/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![npm download](https://img.shields.io/npm/dm/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![Dependency Status](https://david-dm.org/zordius/gulp-jsx-coverage.svg)](https://david-dm.org/zordius/gulp-jsx-coverage) [![Build Status](https://travis-ci.org/zordius/gulp-jsx-coverage.svg?branch=master)](https://travis-ci.org/zordius/gulp-jsx-coverage) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.txt)
 
@@ -9,26 +9,11 @@ Features
 --------
 
 * Help you create a gulp task to handle mocha testing + istanbul coverage
-* Transpile .jsx, .coffee, and ES2015 .js files on the fly
+* Transpile .jsx and ES2015 .js files on the fly
 * Use <a href="https://github.com/babel/babel">babel (6to5)</a> to transpile .js and .jsx files so you can use <a href="http://babeljs.io/docs/learn-es2015/">ES2015 features</a> inside your .js and .jsx files!
 * Customize everything by options
-* Extract sourceMaps to hint original codes in istanbul reports
-* sourceMaps on stack traces when mocha test failed
+* sourceMaps on stack traces when mocha test failed (powered by <a href="https://github.com/evanw/node-source-map-support">source-map-support</a>)
 * coverage threshold
-* **0.3.0 NEW** support isparta
-* **0.3.6 NEW** support <a href="https://github.com/jsdf/coffee-react">.cjsx</a> syntax
-
-Check this chart to see features when gulp-jsx-coverage work with different coverage tools:
-
-| Features \ Coverage Tool | istanbul   | isparta  |
-| -------------------------|------------|----------|
-| Mocha testing            | ✅          | ✅        |
-| Jasmine testing          | ✅          | ✅        |
-| syntax: jsx              | ✅          | ✅        |
-| syntax: ES2015           | ✅          | ✅        |
-| syntax: coffee-script    | ✅          | ❌        |
-| syntax: cjsx             | ✅          | ❌        |
-| coverage report          | transpiled | original |
 
 * **istanbul+mocha:hint original codes (jsx/es2015) in coverage reports**
 <img src="demo1.png" />
@@ -46,19 +31,12 @@ Install
 npm install gulp-jsx-coverage mocha --save-dev
 ```
 
-* You will need to install <a href="https://www.npmjs.com/package/coffee-script">coffee-script</a> when you require('foobar.coffee') or write tests as foobar.coffee
-* You will need to install <a href="https://github.com/jsdf/coffee-react-transform">coffee-react-transform</a> and <a href="https://www.npmjs.com/package/coffee-script">coffee-script</a> when you require('foobar.cjsx') or write tests as foobar.cjsx
-* You will need to install <a href="https://github.com/douglasduteil/isparta">isparta</a> when you enable isparta
-* Regular JavaScript files with .js extension may use ES2015 features
-
 Best Practices
 --------------
 
 * The golden rule: **Use .jsx as ext name** when jsx syntax inside it. Require it by `require('file.jsx')`.
-* The golden rule: **Use .coffee as ext name** when coffee script inside it. Require it by `require('file.coffee')`.
-* The golden rule: **Use .cjsx as ext name** when coffee script + jsx syntax inside it. Require it by `require('file.cjsx')`.
 * When you develop a module, do not use any module loader hooks. (Refer to <a href="https://babeljs.io/docs/usage/require/">Babel require hook document</a>)
-* Excludes transpiler directories as possible to improve performance.
+* Excludes transpiler directories as possible as you can to improve performance.
 * When you develop an application, you may use module loader hooks. But, don't enable the hook when you do testing.
 
 Usage: General Mocha Test Creator
@@ -67,10 +45,7 @@ Usage: General Mocha Test Creator
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     src: ['test/**/*.js', 'test/components/*.jsx'],  // will pass to gulp.src as mocha tests
-    isparta: false,                                  // use istanbul as default
-    istanbul: {                                      // will pass to istanbul or isparta
-        preserveComments: true,                      // required for istanbul 0.4.0+
-        coverageVariable: '__MY_TEST_COVERAGE__',
+    istanbul: {                                      // will pass to istanbul
         exclude: /node_modules|test[0-9]/            // do not instrument these files
     },
 
@@ -86,15 +61,7 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
             include: /\.jsx?$/,
             exclude: /node_modules/,
             omitExt: false                           // if you wanna omit file ext when require(), put an array
-        },                                           // of file exts here. Ex: ['.jsx', '.es6'] (NOT RECOMMENDED)
-        coffee: {
-            include: /\.coffee$/,
-            omitExt: false                           // if you wanna omit file ext when require(), put an array
-        },                                           // of file exts here. Ex: ['.coffee'] (NOT RECOMMENDED)
-        cjsx: {
-            include: /\.cjsx$/,
-            omitExt: false                           // if you wanna omit file ext when require(), put an array
-        }                                            // of file exts here. Ex: ['.cjsx'] (NOT RECOMMENDED)
+        }                                            // of file exts here. Ex: ['.jsx', '.es6'] (NOT RECOMMENDED)
     },
     coverage: {
         reporters: ['text-summary', 'json', 'lcov'], // list of istanbul reporters
@@ -102,10 +69,6 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     },
     mocha: {                                         // will pass to mocha
         reporter: 'spec'
-    },
-
-    coffee: {                                        // will pass to coffee.compile
-        sourceMap: true                              // true to get hints in HTML coverage reports
     },
 
     //optional
@@ -124,27 +87,13 @@ var GJC = require('gulp-jsx-coverage');
 var jasmine = require('gulp-jasmine');
 
 gulp.task('my_jasmine_tests', function () {
-    GJC.initModuleLoaderHack(GJCoptions); // Refer to previous gulp-jsx-coverage options
+    GJC.initModuleLoader(GJCoptions); // Refer to previous gulp-jsx-coverage options
 
     return gulp.src('test/*.js')
     .pipe(jasmine(jasmineOptions))
     .on('end', GJC.collectIstanbulCoverage(GJCoptions));
 });
 ```
-
-Usage: Use Isparta
-------------------
-
-```javascript
-gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
-    src: ['test/**/*.js', 'test/components/*.jsx'],
-    isparta: true,
-    ....
-});
-```
-
-**NOTE: do not support coffee-script when using isparta as coverage tool**
-* Check <a href="http://zordius.github.io/gulp-jsx-coverage/2/lcov-report/">coverage report</a> directory for the sample output.
 
 Live Example: mocha
 -------------------
@@ -202,7 +151,10 @@ Upgrade Notice
 **0.4.0**
 * Core changed:
   * do not support isparta now
+  * do not support coffee-script/cjsx now
   * do not support options.babel now (please use .babelrc)
+  * do not support options.istanbul.coverageVariable now
+  * move to <a href="https://github.com/istanbuljs">istanbul.js</a> and <a href="https://github.com/istanbuljs/babel-plugin-istanbul">babel-plugin-istanbul</a> now
 
 **0.3.2**
 

@@ -1,6 +1,6 @@
 // Mocha test example
 require('gulp').task('mocha_tests', require('./index').createTask({
-    src: ['test/test1.js', 'test/test2.jsx', 'test/test3.coffee', 'test/test7.cjsx'],
+    src: ['test/test1.js', 'test/test2.jsx'],
     istanbul: {
         preserveComments: true,
         exclude: /node_modules|test[0-9]/
@@ -10,12 +10,6 @@ require('gulp').task('mocha_tests', require('./index').createTask({
             include: /\.jsx?$/,
             exclude: /node_modules/,
             omitExt: ['.jsx']
-        },
-        coffee: {
-            include: /\.coffee$/
-        },
-        cjsx: {
-            include: /\.cjsx$/
         }
     },
     coverage: {
@@ -24,9 +18,6 @@ require('gulp').task('mocha_tests', require('./index').createTask({
     },
     mocha: {
         reporter: 'spec'
-    },
-    coffee: {
-        sourceMap: true
     }
 }));
 
@@ -42,17 +33,11 @@ var GJCoptions = {
         babel: {
             include: /\.jsx?$/,
             exclude: /node_modules/
-        },
-        coffee: {
-            include: /\.coffee$/
         }
     },
     coverage: {
         reporters: ['text', 'json', 'lcov'],
         directory: 'coverage'
-    },
-    coffee: {
-        sourceMap: true
     }
 };
 
@@ -71,9 +56,9 @@ gulp.task('mocha_cover_all_tests', GJC.createTask(Object.assign({}, GJCoptions, 
 })));
 
 gulp.task('jasmine_tests', function () {
-    GJC.initModuleLoaderHack(GJCoptions);
+    GJC.initModuleLoader(GJCoptions);
 
-    return gulp.src(['test/test4.js', 'test/test5.jsx', 'test/test6.coffee'])
+    return gulp.src(['test/test4.js', 'test/test5.jsx'])
     .pipe(jasmine())
     .on('end', GJC.collectIstanbulCoverage(GJCoptions));
 });
