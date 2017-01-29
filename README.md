@@ -66,6 +66,7 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
         reporters: ['text-summary', 'json', 'lcov'], // list of istanbul reporters
         directory: 'coverage'                        // will pass to istanbul reporters
     },
+
     mocha: {                                         // will pass to mocha
         reporter: 'spec'
     },
