@@ -23,7 +23,7 @@ Install
 -------
 
 ```
-npm install gulp-jsx-coverage mocha --save-dev
+npm install gulp-jsx-coverage --save-dev
 ```
 
 Best Practices
@@ -40,7 +40,8 @@ Usage: General Mocha Test Creator
 ```javascript
 gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     src: ['test/**/*.js', 'test/components/*.jsx'],  // will pass to gulp.src as mocha tests
-    istanbul: {                                      // will pass to istanbul
+
+    istanbul: {                                      // will pass to istanbul, this is default setting
         exclude: /node_modules|test[0-9]/            // do not instrument these files
     },
 

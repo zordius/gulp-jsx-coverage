@@ -1,3 +1,4 @@
 node_modules
 artifacts
-coverage
+coverage*
+.DS_Store

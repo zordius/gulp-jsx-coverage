@@ -21,20 +21,29 @@ var initModuleLoader = function (options) {
         exclude: /node_modules/,
         omitExt: false
     }, options.babel);
+    var istanbulCfg = Object.assign({
+        exclude: /node_modules/
+    }, options.istanbul);
     var moduleLoader = function (module, filename) {
-        var srcCache = sourceCache[filename],
-            src = srcCache || fs.readFileSync(filename, {encoding: 'utf8'}),
-            tmp;
+        var srcCache = sourceCache[filename];
+        var src = srcCache || fs.readFileSync(filename, {encoding: 'utf8'});
+        var bbl;
+        var cov;
+        var tmp;
 
         if (srcCache) {
             return;
         }
 
-        if (filename.match(babelFiles.include) && !filename.match(babelFiles.exclude)) {
+        bbl = (filename.match(babelFiles.include) && !filename.match(babelFiles.exclude));
+        cov = !filename.match(istanbulCfg.exclude);
+
+        if (bbl || cov) {
             try {
                 tmp = babel.transform(src, Object.assign({
-                    filename: filename
-                }, filename.match(options.istanbul.exclude) ? {} : {plugins: [['istanbul', {include: '*', exclude: '/_NOT_ME_'}]]}));
+                    filename: filename,
+                    babelrc: bbl
+                }, cov ? {plugins: [['istanbul', {include: '*', exclude: '/_NOT_ME_'}]]} : {}));
                 srcCache = tmp.map || 1;
                 src = tmp.code;
             } catch (e) {
