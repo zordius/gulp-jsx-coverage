@@ -83,11 +83,11 @@ var GJC = require('gulp-jsx-coverage');
 var jasmine = require('gulp-jasmine');
 
 gulp.task('my_jasmine_tests', function () {
-    GJC.initModuleLoader(GJCoptions); // Refer to previous gulp-jsx-coverage options
+    GJC.initModuleLoader(GJCoptions);                     // Refer to previous gulp-jsx-coverage options
 
     return gulp.src('test/*.js')
     .pipe(jasmine(jasmineOptions))
-    .on('end', GJC.collectIstanbulCoverage(GJCoptions));
+    .on('end', GJC.collectIstanbulCoverage(GJCoptions));  // Refer to previous gulp-jsx-coverage options
 });
 ```
 
@@ -104,37 +104,53 @@ npm run mocha
 **Output**:
 
 ```
-[13:00:52] Using gulpfile ~/gulp-jsx-coverage/gulpfile.js
-[13:00:52] Starting 'default'...
+ ~/gulp-jsx-coverage master>npm run mocha
+
+> gulp-jsx-coverage@0.3.8 mocha /Users/zordius/gulp-jsx-coverage
+> gulp mocha_tests
+
+[11:50:14] Using gulpfile ~/gulp-jsx-coverage/gulpfile.js
+[11:50:14] Starting 'mocha_tests'...
 
 
   target (tested by test1.js)
     ✓ should multiply correctly
     - should not show coverage info for test1.js
-    ✓ should handle es6 template string correctly
+    ✓ should handle es2015 template string correctly
 
   target (tested by test2.jsx)
-    ✓ should multiply correctly
+    ✓ should multiply correctly (77ms)
     - should not show coverage info for test2.jsx
+    1) should exception and failed
 
-  target (tested by test3.coffee)
-    ✓ should multiply correctly
-    - should not show coverage info for test3.coffee
+  Component.jsx (tested by test2.jsx)
+    ✓ should render Hello World
 
 
-  4 passing (42ms)
-  3 pending
+  4 passing (104ms)
+  2 pending
+  1 failing
 
-----------------|-----------|-----------|-----------|-----------|
-File            |   % Stmts |% Branches |   % Funcs |   % Lines |
-----------------|-----------|-----------|-----------|-----------|
-   test/        |        80 |       100 |     66.67 |        80 |
-      target.js |        80 |       100 |     66.67 |        80 |
-----------------|-----------|-----------|-----------|-----------|
-All files       |        80 |       100 |     66.67 |        80 |
-----------------|-----------|-----------|-----------|-----------|
+  1) target (tested by test2.jsx) should exception and failed:
+     TypeError: "hohoho
+ this is
+ multi line
+ error!".notAFunction is not a function
+      at Context.<anonymous> (test2.jsx:34:10)
 
-[13:00:53] Finished 'default' after 642 ms
+
+[11:50:16] 'mocha_tests' errored after 1.86 s
+[11:50:16] Error in plugin 'gulp-mocha'
+Message:
+    1 test failed.
+---------------|----------|----------|----------|----------|----------------|
+File           |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+---------------|----------|----------|----------|----------|----------------|
+All files      |    90.48 |      100 |       75 |    90.48 |                |
+ Component.jsx |       75 |      100 |       50 |       75 |              5 |
+ target.js     |       80 |      100 |    66.67 |       80 |              8 |
+ testlib.js    |      100 |      100 |      100 |      100 |                |
+---------------|----------|----------|----------|----------|----------------|
 ```
 
 * Check <a href="gulpfile.js">gulpfile.js</a> for the sample input.

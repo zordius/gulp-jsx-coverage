@@ -31,8 +31,9 @@
     "CoffeeScript"
   ],
   "scripts": {
-    "test": "npm run jasmine && npm run mocha",
-    "mocha": "gulp mocha_tests;gulp mocha_emitext_tests;gulp mocha_cover_all_tests",
+    "test": "npm run jasmine && npm run mochaall",
+    "mocha": "gulp mocha_tests",
+    "mochaall": "gulp mocha_tests;gulp mocha_emitext_tests;gulp mocha_cover_all_tests",
     "jasmine": "gulp jasmine_tests",
     "threshold": "gulp mocha_threshold_tests",
     "lint": "eslint index.js gulpfile.js test/*.js?"
