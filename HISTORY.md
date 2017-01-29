@@ -10,6 +10,7 @@ HISTORY
    * **BREAK CHANGE** rename .initModuleLoaderHack() to initModuleLoader()
    * move to <a href="https://github.com/istanbuljs">istanbul.js</a> and <a href="https://github.com/istanbuljs/babel-plugin-istanbul">babel-plugin-istanbul</a>, coverage report with original codes!
    * move to <a href="https://github.com/evanw/node-source-map-support">source-map-support</a>, better stack traces with original codes and lines!
+   * only support node4+
 
 2016-02-01 0.3.8 https://github.com/zordius/gulp-jsx-coverage/releases/tag/v0.3.8
    * support multiple coverage threshold types
