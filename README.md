@@ -14,10 +14,12 @@ Features
 * Customize everything by options
 * sourceMaps on stack traces when mocha test failed (powered by <a href="https://github.com/evanw/node-source-map-support">source-map-support</a>)
 * coverage threshold
-* **istanbul+mocha:hint original codes (jsx/es2015) in coverage reports**
+
+**original codes (jsx/es2015) in coverage reports**
 <img src="demo1.png" />
-* **mocha:show original code/line when test failed**
-<img src="demo2.png" />
+
+**mocha:show original code/line when test failed**
+<img src="demo2.jpg" />
 
 Install
 -------
