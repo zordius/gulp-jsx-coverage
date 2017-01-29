@@ -10,7 +10,7 @@ Features
 
 * Help you create a gulp task to handle mocha testing + istanbul coverage
 * Transpile .jsx and ES2015 .js files on the fly
-* Use <a href="https://github.com/babel/babel">babel (6to5)</a> to transpile .js and .jsx files so you can use <a href="http://babeljs.io/docs/learn-es2015/">ES2015 features</a> inside your .js and .jsx files!
+* Use <a href="https://github.com/babel/babel">babel</a> to transpile .js and .jsx files so you can use <a href="http://babeljs.io/docs/learn-es2015/">ES2015 features</a> inside your .js and .jsx files!
 * Customize everything by options
 * sourceMaps on stack traces when mocha test failed (powered by <a href="https://github.com/evanw/node-source-map-support">source-map-support</a>)
 * coverage threshold
