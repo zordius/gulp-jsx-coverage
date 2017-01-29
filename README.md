@@ -1,7 +1,7 @@
 gulp-jsx-coverage
 =================
 
-Enable istanbul coverage on ES2015/babel files when you do mocha/jasmine tests.
+Enable istanbul coverage on ES2015/babel files when you do mocha/jasmine tests, also deal with sourceMap for stack trace....as gulp task.
 
 [![npm version](https://img.shields.io/npm/v/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![npm download](https://img.shields.io/npm/dm/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![Dependency Status](https://david-dm.org/zordius/gulp-jsx-coverage.svg)](https://david-dm.org/zordius/gulp-jsx-coverage) [![Build Status](https://travis-ci.org/zordius/gulp-jsx-coverage.svg?branch=master)](https://travis-ci.org/zordius/gulp-jsx-coverage) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.txt)
 
@@ -14,15 +14,10 @@ Features
 * Customize everything by options
 * sourceMaps on stack traces when mocha test failed (powered by <a href="https://github.com/evanw/node-source-map-support">source-map-support</a>)
 * coverage threshold
-
 * **istanbul+mocha:hint original codes (jsx/es2015) in coverage reports**
 <img src="demo1.png" />
-* **istanbul+mocha:hint original coffee-script in coverage reports**
-<img src="demo2.png" />
 * **mocha:show original code/line when test failed**
-<img src="demo3.png" />
-* **isparta+mocha:show original codes in coverage reports**
-<img src="demo4.png" />
+<img src="demo2.png" />
 
 Install
 -------

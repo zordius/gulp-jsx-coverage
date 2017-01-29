@@ -3,7 +3,6 @@
 var gulp = require('gulp');
 var fs = require('fs');
 var babel = require('babel-core');
-var SM = require('source-map');
 var coverage = require('istanbul-lib-coverage');
 var report = require('istanbul-lib-report');
 var reporters = require('istanbul-reports');
