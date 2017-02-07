@@ -80,7 +80,7 @@ gulp.task('your_task_name', require('gulp-jsx-coverage').createTask({
     src: ['test/**/*.js', 'test/components/*.jsx'],  // will pass to gulp.src as mocha tests
 
     istanbul: {                                      // will pass to istanbul, this is default setting
-        exclude: /node_modules|test[0-9]/            // do not instrument these files
+        exclude: /node_modules/                      // do not instrument these files
     },
 
     threshold: [                                     // fail the task when coverage lower than one of this array
