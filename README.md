@@ -5,6 +5,8 @@ Enable istanbul coverage on ES2015/babel files when you do mocha/jasmine tests, 
 
 [![npm version](https://img.shields.io/npm/v/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![npm download](https://img.shields.io/npm/dm/gulp-jsx-coverage.svg)](https://www.npmjs.org/package/gulp-jsx-coverage) [![Dependency Status](https://david-dm.org/zordius/gulp-jsx-coverage.svg)](https://david-dm.org/zordius/gulp-jsx-coverage) [![Build Status](https://travis-ci.org/zordius/gulp-jsx-coverage.svg?branch=master)](https://travis-ci.org/zordius/gulp-jsx-coverage) [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.txt)
 
+**deprecated** Suggest to use <a href="https://facebook.github.io/jest/">jest</a> to test, or use new <a href="https://github.com/istanbuljs/nyc">istanbul/nyc</a> directly.
+
 Features
 ========
 
